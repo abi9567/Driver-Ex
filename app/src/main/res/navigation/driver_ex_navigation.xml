@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loagingFragment"
-        android:name="com.example.driverex.ui.fragment.LandingFragment"
+        android:name="com.example.driverex.view.fragment.LandingFragment"
         android:label="fragment_loaging"
         tools:layout="@layout/fragment_landing" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.example.driverex.ui.fragment.SignInFragment"
+        android:name="com.example.driverex.view.fragment.SignInFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.driverex.ui.fragment.HomeFragment"
+        android:name="com.example.driverex.view.fragment.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/userDetailsFragment"
-        android:name="com.example.driverex.ui.fragment.UserDetailsFragment"
+        android:name="com.example.driverex.view.fragment.UserDetailsFragment"
         android:label="fragment_user_details"
         tools:layout="@layout/fragment_user_details" >
         <action

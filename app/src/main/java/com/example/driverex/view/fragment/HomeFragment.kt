@@ -1,16 +1,16 @@
-package com.example.driverex.ui.fragment
+package com.example.driverex.view.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.driverex.databinding.FragmentUserDetailsBinding
+import com.example.driverex.databinding.FragmentHomeBinding
 
 
-class UserDetailsFragment : Fragment() {
+class HomeFragment : Fragment() {
 
-    private lateinit var binding : FragmentUserDetailsBinding
+    private lateinit var binding : FragmentHomeBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -18,7 +18,12 @@ class UserDetailsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        binding = FragmentUserDetailsBinding.inflate(layoutInflater,container,false)
+        binding = FragmentHomeBinding.inflate(layoutInflater,container,false)
+
+
+
+
+
 
 
         return binding.root

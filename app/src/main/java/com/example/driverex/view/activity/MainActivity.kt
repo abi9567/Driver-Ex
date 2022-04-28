@@ -1,4 +1,4 @@
-package com.example.driverex.ui.activity
+package com.example.driverex.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
