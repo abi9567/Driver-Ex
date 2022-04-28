@@ -11,6 +11,14 @@ import com.example.driverex.model.network.RetrofitService
 class EmployeeViewModel : ViewModel() {
 
 
+    val repository = EmployeeRepository()
+
+
+    fun login(email : String, password: String) {
+        repository.userLogin(email,password)
+    }
+
+
 
 
 }

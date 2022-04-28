@@ -14,10 +14,14 @@ import retrofit2.Response
 
 class EmployeeRepository {
 
-    val loginResponse = MutableLiveData<DefaultResponse<LoginResponse>?>()
-    val errorResponse = MutableLiveData<DefaultResponse<ErrorResponse>>()
+    val loginResponse = MutableLiveData<LoginResponse>()
+    val errorResponse = MutableLiveData<ErrorResponse>()
+    var isLoading = MutableLiveData<Boolean>(false)
 
-    fun userLogin(userName : String, password : String) : MutableLiveData<DefaultResponse<LoginResponse>?> {
+
+    fun userLogin(userName : String, password : String) {
+
+        isLoading.value = true
 
         RetrofitService.retrofitService().userLogin(userName,password)
             .enqueue(object : Callback<DefaultResponse<LoginResponse>?> {
@@ -25,25 +29,23 @@ class EmployeeRepository {
                     call: Call<DefaultResponse<LoginResponse>?>,
                     response: Response<DefaultResponse<LoginResponse>?>
                 ) {
+                    Log.d("RETRO",response.raw().toString())
+                    isLoading.value = false
                     if (response.isSuccessful) {
-                        loginResponse.value = response.body()
+                        loginResponse.value = response.body()?.data!!
                     }
-
-                    else {
-                        loginResponse.value = null
-                    }
-
 
                 }
 
                 override fun onFailure(call: Call<DefaultResponse<LoginResponse>?>, t: Throwable) {
 
-                    Log.d("RETRO",t.message.toString())
+                    isLoading.value = false
+                    errorResponse.value = ErrorResponse(t.message?:"Something Went Wrong")
 
                 }
             })
 
-        return loginResponse
+
     }
 
 }
