@@ -1,5 +1,6 @@
 package com.example.driverex.model.network
 
+import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
@@ -56,17 +57,14 @@ class EmployeeRepository {
                 call: Call<DefaultResponse<EmployeeResponse>?>,
                 response: Response<DefaultResponse<EmployeeResponse>?>
             ) {
-
                 if (response.isSuccessful) {
                     employeeDetails.value = response.body()?.data?.data
                 }
-
             }
 
             override fun onFailure(call: Call<DefaultResponse<EmployeeResponse>?>, t: Throwable) {
-
-                Log.d("REPO",t.message.toString())
-
+                Log.d("REPOSIT",t.message.toString())
+                errorResponse.value = ErrorResponse(t.message.toString())
             }
         })
 

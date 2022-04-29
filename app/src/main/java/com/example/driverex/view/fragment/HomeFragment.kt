@@ -1,19 +1,18 @@
 package com.example.driverex.view.fragment
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.driverex.R
 import com.example.driverex.databinding.FragmentHomeBinding
 import com.example.driverex.utils.navigation
 import com.example.driverex.utils.sharedPref
+import com.example.driverex.utils.showToast
 import com.example.driverex.view.adapter.EmployeeAdapter
 import com.example.driverex.viewmodel.EmployeeViewModel
 
@@ -35,7 +34,6 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater,container,false)
         viewModel = ViewModelProvider((requireActivity())).get(EmployeeViewModel::class.java)
 
-//        sharedPref = requireContext().getSharedPreferences(KEY,Context.MODE_PRIVATE)
 
         sharedPref = requireContext().sharedPref()
         val token = sharedPref.getString(ACCESS_TOKEN,null)
@@ -50,15 +48,19 @@ class HomeFragment : Fragment() {
             }
         }
 
-
         binding.include.logOut.setOnClickListener {
-
             sharedPref.edit()
                 .putString(getString(R.string.sharedPrefLogCheck),"OUT")
                 .apply()
             requireView().navigation(R.id.action_homeFragment_to_loagingFragment)
         }
 
+        viewModel.repository.errorResponse.observe(viewLifecycleOwner) {
+            requireContext().showToast(it.message)
+        }
+
         return binding.root
     }
+
+
 }

@@ -3,6 +3,8 @@ package com.example.driverex.view.fragment
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -63,6 +65,10 @@ class UserDetailsFragment : Fragment() {
         binding.favouriteButton.setOnClickListener {
 
 
+            val g = sharedPref.edit()
+                .putString(getString(R.string.sharedPrefFavKey),"YES")
+                .apply()
+
             binding.favouriteButton.backgroundTintList =
                 ColorStateList.valueOf(requireContext().resources.getColor(R.color.app_color))
             binding.favouriteButton.imageTintList =
@@ -70,24 +76,10 @@ class UserDetailsFragment : Fragment() {
 
             it.snackBar("Added to Favorite")
 
+            val favo = 1
 
 
-//            when (fav) {
-//                "YES" -> {
-//
-//                    binding.favouriteButton.backgroundTintList =
-//                        ColorStateList.valueOf(requireContext().resources.getColor(R.color.white))
-//                    binding.favouriteButton.imageTintList =
-//                        ColorStateList.valueOf(requireContext().resources.getColor(R.color.black))
-//
-//                }
-//                else -> {
-//
-//
-//
-//                }
-//
-//            }
+
 
         }
 

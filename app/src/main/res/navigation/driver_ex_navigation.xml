@@ -13,6 +13,8 @@
         <action
             android:id="@+id/action_loagingFragment_to_signInFragment"
             app:destination="@id/signInFragment"
+            app:enterAnim="@anim/left_to_right_animation"
+            app:exitAnim="@anim/right_to_left_animation"
             app:popUpTo="@id/loagingFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -24,6 +26,8 @@
         <action
             android:id="@+id/action_signInFragment_to_homeFragment"
             app:destination="@id/homeFragment"
+            app:enterAnim="@anim/left_to_right_animation"
+            app:exitAnim="@anim/right_to_left_animation"
             app:popUpTo="@id/signInFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -34,10 +38,14 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_userDetailsFragment"
-            app:destination="@id/userDetailsFragment" />
+            app:destination="@id/userDetailsFragment"
+            app:enterAnim="@anim/left_to_right_animation"
+            app:exitAnim="@anim/right_to_left_animation" />
         <action
             android:id="@+id/action_homeFragment_to_loagingFragment"
             app:destination="@id/loagingFragment"
+            app:enterAnim="@anim/left_to_right_animation"
+            app:exitAnim="@anim/right_to_left_animation"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -48,7 +56,9 @@
         tools:layout="@layout/fragment_user_details" >
         <action
             android:id="@+id/action_userDetailsFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/left_to_right_animation"
+            app:exitAnim="@anim/right_to_left_animation" />
         <argument
             android:name="userBundle"
             app:argType="com.example.driverex.model.data.EmployeeData" />
@@ -67,6 +77,8 @@
         <action
             android:id="@+id/action_splashFragment_to_homeFragment"
             app:destination="@id/homeFragment"
+            app:enterAnim="@anim/left_to_right_animation"
+            app:exitAnim="@anim/right_to_left_animation"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
     </fragment>

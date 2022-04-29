@@ -1,11 +1,13 @@
 package com.example.driverex.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.*
+import androidx.navigation.navArgument
+import com.example.driverex.model.data.EmployeeData
 import com.example.driverex.model.data.LoginResponse
 import com.example.driverex.model.network.EmployeeRepository
 import com.example.driverex.model.network.RetrofitService
+import java.util.logging.Handler
 
 
 class EmployeeViewModel : ViewModel() {
@@ -16,7 +18,6 @@ class EmployeeViewModel : ViewModel() {
         repository.userLogin(email,password)
 
     }
-
 
     fun employeeData(token : String) {
         repository.employeeData(token)
