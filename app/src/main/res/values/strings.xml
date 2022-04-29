@@ -15,6 +15,12 @@
     <string name="personal">Personal</string>
 
     <string name="individual_name">%s %s</string>
-
+    <string name="sharedPrefLogCheck">inOrOut</string>
+    <string name="sharedPrefAccessToken">ACCESS_TOKEN</string>
+    <string name="sharedPrefIn">IN</string>
+    <string name="sharedPrefOut">OUT</string>
+    <string name="sharedPrefFavKey">FAV</string>
+    <string name="sharedPrefFav">YES</string>
+    <string name="sharedPrefNotFav">NOT</string>
 
 </resources>

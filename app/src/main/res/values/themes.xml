@@ -28,7 +28,9 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-
+    <style name="progress">
+        <item name="colorAccent">@color/insideAppColor</item>
+    </style>
 
 
 </resources>

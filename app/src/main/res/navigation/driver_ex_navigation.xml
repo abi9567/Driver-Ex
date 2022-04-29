@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/driver_ex_navigation"
-    app:startDestination="@id/loagingFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/loagingFragment"
@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_landing" >
         <action
             android:id="@+id/action_loagingFragment_to_signInFragment"
-            app:destination="@id/signInFragment" />
+            app:destination="@id/signInFragment"
+            app:popUpTo="@id/loagingFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
@@ -21,7 +23,9 @@
         tools:layout="@layout/fragment_sign_in" >
         <action
             android:id="@+id/action_signInFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/signInFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -31,6 +35,11 @@
         <action
             android:id="@+id/action_homeFragment_to_userDetailsFragment"
             app:destination="@id/userDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_loagingFragment"
+            app:destination="@id/loagingFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/userDetailsFragment"
@@ -43,5 +52,22 @@
         <argument
             android:name="userBundle"
             app:argType="com.example.driverex.model.data.EmployeeData" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.driverex.view.fragment.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_loagingFragment"
+            app:destination="@id/loagingFragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

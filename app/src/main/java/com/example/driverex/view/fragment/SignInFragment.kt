@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.driverex.R
 import com.example.driverex.databinding.FragmentSignInBinding
+import com.example.driverex.utils.navigation
+import com.example.driverex.utils.sharedPref
 import com.example.driverex.viewmodel.EmployeeViewModel
 import com.example.driverex.utils.showToast
 
@@ -31,7 +33,8 @@ class SignInFragment : Fragment() {
 
         // Inflate the layout for this fragment
         binding = FragmentSignInBinding.inflate(layoutInflater, container, false)
-        sharedPref = requireContext().getSharedPreferences(KEY, Context.MODE_PRIVATE)
+
+        sharedPref = requireContext().sharedPref()
 
         //ViewModel Creation
         viewModel = ViewModelProvider(requireActivity()).get(EmployeeViewModel::class.java)
@@ -47,10 +50,11 @@ class SignInFragment : Fragment() {
             viewModel.repository.loginResponse.observe(viewLifecycleOwner) {
 
                 sharedPref.edit()
-                    .putString(ACCESS_TOKEN,it.access_token)
+                    .putString(getString(R.string.sharedPrefAccessToken),it.access_token)
+                    .putString(getString(R.string.sharedPrefLogCheck),getString(R.string.sharedPrefIn))
                     .apply()
 
-                Navigation.findNavController(view).navigate(R.id.action_signInFragment_to_homeFragment)
+                requireView().navigation(R.id.action_signInFragment_to_homeFragment)
 
             }
 
