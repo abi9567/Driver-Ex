@@ -13,4 +13,8 @@
     <string name="mobile">Mobile</string>
     <string name="work">Work</string>
     <string name="personal">Personal</string>
+
+    <string name="individual_name">%s %s</string>
+
+
 </resources>

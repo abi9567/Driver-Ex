@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import com.example.driverex.R
 import com.example.driverex.databinding.FragmentSignInBinding
 import com.example.driverex.viewmodel.EmployeeViewModel
 import com.example.driverex.showToast
@@ -35,7 +37,7 @@ class SignInFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity()).get(EmployeeViewModel::class.java)
 
 
-        binding.signInButton2.setOnClickListener {
+        binding.signInButton2.setOnClickListener { view ->
 
             viewModel.login(
                 binding.emailInput.text.toString(),
@@ -43,7 +45,13 @@ class SignInFragment : Fragment() {
             )
 
             viewModel.repository.loginResponse.observe(viewLifecycleOwner) {
-                requireContext().showToast(it.access_token)
+
+                sharedPref.edit()
+                    .putString(ACCESS_TOKEN,it.access_token)
+                    .apply()
+
+                Navigation.findNavController(view).navigate(R.id.action_signInFragment_to_homeFragment)
+
             }
 
             viewModel.repository.errorResponse.observe(viewLifecycleOwner) {
