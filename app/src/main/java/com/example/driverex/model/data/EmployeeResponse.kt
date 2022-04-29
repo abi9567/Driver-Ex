@@ -1,5 +1,9 @@
 package com.example.driverex.model.data
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+    @Parcelize
     data class EmployeeResponse(
         val current_page: Int,
         val `data`: List<EmployeeData>,
@@ -11,10 +15,12 @@ package com.example.driverex.model.data
         val next_page_url: String,
         val path: String,
         val per_page: Int,
-        val prev_page_url: Any,
+        val prev_page_url: String,
         val to: Int,
         val total: Int
-    )
+    ) : Parcelable
+
+        @Parcelize
         data class EmployeeData(
             val created_at: String,
             val date_of_birth: String,
@@ -33,11 +39,12 @@ package com.example.driverex.model.data
             val resume: String,
             val status: String,
             val updated_at: String
-        )
+        ) : Parcelable
 
+        @Parcelize
         data class Link(
             val active: Boolean,
             val label: String,
-            val url: Any
-        )
+            val url: String
+        ) : Parcelable
 

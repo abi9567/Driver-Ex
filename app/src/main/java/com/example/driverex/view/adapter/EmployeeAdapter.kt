@@ -1,10 +1,12 @@
 package com.example.driverex.view.adapter
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.driverex.R
 import com.example.driverex.databinding.EmployeeIndividualRowBinding
@@ -27,6 +29,14 @@ class EmployeeAdapter(val context : Context, val employeeList : List<EmployeeDat
 
         val currentItem = employeeList[position]
         holder.binding.employeeIndividualName.text = context.getString(R.string.individual_name,currentItem.first_name,currentItem.last_name)
+
+        holder.itemView.setOnClickListener {
+
+            val bundle = Bundle()
+            bundle.putParcelable("bundle",currentItem)
+            Navigation.findNavController(it).navigate(R.id.action_homeFragment_to_userDetailsFragment,bundle)
+
+        }
 
     }
 

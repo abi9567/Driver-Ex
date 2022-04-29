@@ -12,7 +12,7 @@ import androidx.navigation.Navigation
 import com.example.driverex.R
 import com.example.driverex.databinding.FragmentSignInBinding
 import com.example.driverex.viewmodel.EmployeeViewModel
-import com.example.driverex.showToast
+import com.example.driverex.utils.showToast
 
 class SignInFragment : Fragment() {
 

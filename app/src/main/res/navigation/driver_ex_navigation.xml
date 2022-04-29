@@ -40,5 +40,8 @@
         <action
             android:id="@+id/action_userDetailsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <argument
+            android:name="userBundle"
+            app:argType="com.example.driverex.model.data.EmployeeData" />
     </fragment>
 </navigation>

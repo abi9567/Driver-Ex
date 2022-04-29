@@ -18,7 +18,7 @@
         <entry key="app/src/main/res/layout/fragment_landing.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_loaging.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_sign_in.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_user_details.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_user_details.xml" value="0.33" />
         <entry key="app/src/main/res/layout/tool_bar_home_page.xml" value="0.33" />
       </map>
     </option>

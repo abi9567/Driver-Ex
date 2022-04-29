@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:id="@+id/driverExFragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost = "true"
         app:navGraph = "@navigation/driver_ex_navigation"
         android:layout_height="match_parent"/>
 
