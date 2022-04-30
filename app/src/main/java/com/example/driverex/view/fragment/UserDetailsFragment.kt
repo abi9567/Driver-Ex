@@ -1,26 +1,25 @@
 package com.example.driverex.view.fragment
 
-import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import com.example.driverex.R
 import com.example.driverex.databinding.FragmentUserDetailsBinding
 import com.example.driverex.model.data.EmployeeData
-import com.example.driverex.utils.sharedPref
+import com.example.driverex.utils.navigation
 import com.example.driverex.utils.snackBar
-import com.google.android.material.snackbar.Snackbar
+import com.example.driverex.viewmodel.EmployeeViewModel
 
 
 class UserDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentUserDetailsBinding
-    private lateinit var sharedPref: SharedPreferences
+    private lateinit var viewModel : EmployeeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,24 +27,23 @@ class UserDetailsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentUserDetailsBinding.inflate(layoutInflater, container, false)
-        sharedPref = requireContext().sharedPref()
+        viewModel = ViewModelProvider(requireActivity()).get(EmployeeViewModel::class.java)
 
+        viewModel.getSharedPrefFavData()
 
-        val fav = sharedPref.getString(getString(R.string.sharedPrefFavKey), null)
+        viewModel.favourite.observe(viewLifecycleOwner) {
 
-        when (fav) {
-            "YES" -> {
-                binding.favouriteButton.backgroundTintList =
-                    ColorStateList.valueOf(requireContext().resources.getColor(R.color.app_color))
-                binding.favouriteButton.imageTintList =
-                    ColorStateList.valueOf(requireContext().resources.getColor(R.color.app_color))
+            when (it) {
+                "YES" -> {
+                    binding.favouriteButton.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.app_color))
+                    binding.favouriteButton.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.app_color))
+                }
+                else -> {
+                    binding.favouriteButton.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.white))
+                    binding.favouriteButton.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.black))
+                }
             }
-            else -> {
-                binding.favouriteButton.backgroundTintList =
-                    ColorStateList.valueOf(requireContext().resources.getColor(R.color.white))
-                binding.favouriteButton.imageTintList =
-                    ColorStateList.valueOf(requireContext().resources.getColor(R.color.black))
-            }
+
         }
 
         val bundle = arguments?.getParcelable<EmployeeData>("bundle")!!
@@ -64,25 +62,15 @@ class UserDetailsFragment : Fragment() {
 
         binding.favouriteButton.setOnClickListener {
 
-
-            val g = sharedPref.edit()
-                .putString(getString(R.string.sharedPrefFavKey),"YES")
-                .apply()
-
-            binding.favouriteButton.backgroundTintList =
-                ColorStateList.valueOf(requireContext().resources.getColor(R.color.app_color))
-            binding.favouriteButton.imageTintList =
-                ColorStateList.valueOf(requireContext().resources.getColor(R.color.app_color))
-
+            viewModel.favouriteSharedPref()
+            binding.favouriteButton.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.app_color))
+            binding.favouriteButton.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.app_color))
             it.snackBar("Added to Favorite")
-
-            val favo = 1
-
-
-
-
         }
 
+        binding.toolBarDetailPage.goBack.setOnClickListener {
+            it.navigation(R.id.action_userDetailsFragment_to_homeFragment)
+        }
             return binding.root
         }
     }

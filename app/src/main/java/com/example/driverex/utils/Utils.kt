@@ -11,7 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 const val KEY = "MYPREF"
 
     fun Context.showToast(msg : String) {
-        Toast.makeText(this,msg,Toast.LENGTH_LONG).show()
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show()
     }
 
 fun Context.sharedPref() : SharedPreferences {
@@ -25,5 +25,4 @@ fun View.navigation(actionId : Int) {
 fun View.snackBar(text : String) {
     Snackbar.make(this, text,Snackbar.LENGTH_SHORT).show()
 }
-
 

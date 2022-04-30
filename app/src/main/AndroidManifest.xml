@@ -3,8 +3,11 @@
     package="com.example.driverex">
     <uses-permission android:name="android.permission.INTERNET"/>
 
+
+
     <application
         android:allowBackup="true"
+        android:name=".MyApplication"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true"
         android:label="@string/app_name"

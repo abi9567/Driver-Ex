@@ -20,7 +20,7 @@ class EmployeeRepository {
     val employeeDetails = MutableLiveData<List<EmployeeData>>()
 
 
-    fun userLogin(userName: String, password: String) {
+    fun userLogin(userName: String, password: String) : MutableLiveData<LoginResponse> {
 
         isLoading.value = true
 
@@ -49,9 +49,11 @@ class EmployeeRepository {
                 }
             })
 
+        return loginResponse
+
     }
 
-    fun employeeData(token: String) {
+    fun employeeData(token: String) : MutableLiveData<List<EmployeeData>> {
         RetrofitService.retrofitService().employeeData("Bearer $token").enqueue(object : Callback<DefaultResponse<EmployeeResponse>?> {
             override fun onResponse(
                 call: Call<DefaultResponse<EmployeeResponse>?>,
@@ -68,8 +70,7 @@ class EmployeeRepository {
             }
         })
 
-
-
+        return employeeDetails
 
     }
 }

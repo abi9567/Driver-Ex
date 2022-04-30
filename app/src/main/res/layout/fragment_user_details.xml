@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".view.fragment.UserDetailsFragment">
 
+
+
     <TextView
         android:id="@+id/personal_emailText"
         style="@style/user_detail"
@@ -194,6 +196,10 @@
         app:layout_constraintHorizontal_bias="0.113"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/toolBarDetailPage"
+        layout="@layout/tool_bar_user_detail_page"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

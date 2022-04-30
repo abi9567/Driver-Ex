@@ -5,13 +5,15 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.driverex.MyApplication
 import com.example.driverex.R
 import com.example.driverex.utils.showToast
 
 
 class MainActivity : AppCompatActivity() {
 
-    private var backPress : Boolean = false
+    private var backPress: Boolean = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,17 +25,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
 
+        if (backPress) {
+            super.onBackPressed()
+        }
+        backPress = true
         showToast("Press Again to Exit")
 
         Handler(Looper.getMainLooper()).postDelayed({
-         backPress = true
-        },3000)
-
-        super.onBackPressed()
-
+            backPress = false
+        }, 2000)
 
     }
 
-
     }
-}

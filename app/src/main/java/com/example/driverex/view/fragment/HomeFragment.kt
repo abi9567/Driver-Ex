@@ -1,6 +1,5 @@
 package com.example.driverex.view.fragment
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.driverex.R
 import com.example.driverex.databinding.FragmentHomeBinding
 import com.example.driverex.utils.navigation
-import com.example.driverex.utils.sharedPref
 import com.example.driverex.utils.showToast
 import com.example.driverex.view.adapter.EmployeeAdapter
 import com.example.driverex.viewmodel.EmployeeViewModel
@@ -21,9 +19,6 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding : FragmentHomeBinding
     private lateinit var viewModel : EmployeeViewModel
-    private lateinit var sharedPref : SharedPreferences
-
-    val ACCESS_TOKEN = "ACCESS_TOKEN"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,24 +29,19 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater,container,false)
         viewModel = ViewModelProvider((requireActivity())).get(EmployeeViewModel::class.java)
 
+        viewModel.getSharedPrefAccessToken()
+        val token = viewModel.accessToken
 
-        sharedPref = requireContext().sharedPref()
-        val token = sharedPref.getString(ACCESS_TOKEN,null)
-        viewModel.employeeData(token.toString())
-
-
-        viewModel.repository.employeeDetails.observe(viewLifecycleOwner) {
-
+        viewModel.employeeData(token).observe(viewLifecycleOwner) {
             binding.employeeRecyclerView.apply {
-                adapter = EmployeeAdapter(requireContext(),it.sortedBy { it.first_name })
-                layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+                adapter = EmployeeAdapter(requireContext(), it.sortedBy { it.first_name })
+                layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             }
         }
 
         binding.include.logOut.setOnClickListener {
-            sharedPref.edit()
-                .putString(getString(R.string.sharedPrefLogCheck),"OUT")
-                .apply()
+            viewModel.setLogINOut("OUT")
             requireView().navigation(R.id.action_homeFragment_to_loagingFragment)
         }
 
@@ -61,6 +51,5 @@ class HomeFragment : Fragment() {
 
         return binding.root
     }
-
 
 }
