@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.driverex.R
 import com.example.driverex.databinding.FragmentSplashBinding
+import com.example.driverex.utils.SharedPrefUtils
 import com.example.driverex.utils.navigation
 import com.example.driverex.viewmodel.EmployeeViewModel
 
@@ -29,8 +30,7 @@ class SplashFragment : Fragment() {
         binding = FragmentSplashBinding.inflate(layoutInflater,container,false)
         viewModel = ViewModelProvider(requireActivity()).get(EmployeeViewModel::class.java)
 
-        viewModel.getSharedPrefLogin()
-        viewModel.loginCheck.observe(viewLifecycleOwner) {
+        viewModel.getSharedPrefLogin().observe(viewLifecycleOwner) {
 
             when (it) {
                 "IN" ->

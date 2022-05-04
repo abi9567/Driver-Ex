@@ -15,14 +15,16 @@ class EmployeeRepository {
 
     val loginResponse = MutableLiveData<LoginResponse>()
     val errorResponse = MutableLiveData<ErrorResponse>()
+    val loginMessage  = MutableLiveData<String>()
     val isLoading = MutableLiveData<Boolean>(false)
+    val proceed = MutableLiveData<Boolean>(false)
 
     val employeeDetails = MutableLiveData<List<EmployeeData>>()
-
 
     fun userLogin(userName: String, password: String) : MutableLiveData<LoginResponse> {
 
         isLoading.value = true
+        proceed.value = false
 
         RetrofitService.retrofitService().userLogin(userName, password)
             .enqueue(object : Callback<DefaultResponse<LoginResponse>?> {
@@ -31,24 +33,37 @@ class EmployeeRepository {
                     response: Response<DefaultResponse<LoginResponse>?>
                 ) {
                     Log.d("RETRO", response.message())
-
                     isLoading.value = false
+
+//                    if (response.body()?.message.equals("User Logged in")) {
+
                     if (response.isSuccessful) {
+                        proceed.value = true
+                        loginMessage.value = response.body()?.message!!
                         loginResponse.value = response.body()?.data!!
-                    } else if (response.message().equals("Unauthorized")) {
-                        Log.e("ResponseError", response.errorBody().toString())
-                        errorResponse.value = ErrorResponse("Check Your Password")
+
                     }
+
+                    if (!response.isSuccessful) {
+                        proceed.value = false
+                        //Un Authorised
+                        Log.e("ResponseError", response.message())
+                        errorResponse.value = ErrorResponse(response.message())
+                    }
+//
+//                    else if (response.message().equals("Unauthorized")) {
+//
+//                    }
                 }
 
                 override fun onFailure(call: Call<DefaultResponse<LoginResponse>?>, t: Throwable) {
-
+                    proceed.value = false
                     isLoading.value = false
                     errorResponse.value = ErrorResponse(t.message ?: "Something Went Wrong")
-
                 }
             })
 
+        proceed.value = false
         return loginResponse
 
     }

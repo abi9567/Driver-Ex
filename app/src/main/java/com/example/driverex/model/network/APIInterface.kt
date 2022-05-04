@@ -24,6 +24,7 @@ interface APIInterface {
     fun employeeData
     (
         @Header("Authorization") token : String
+
     ) : Call<DefaultResponse<EmployeeResponse>>
 
 }

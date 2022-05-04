@@ -8,4 +8,4 @@ data class LoginResponse(
 data class ErrorResponse
     (
     val message : String
-)
+    )

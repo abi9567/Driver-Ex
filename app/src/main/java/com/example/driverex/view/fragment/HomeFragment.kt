@@ -29,10 +29,10 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater,container,false)
         viewModel = ViewModelProvider((requireActivity())).get(EmployeeViewModel::class.java)
 
-        viewModel.getSharedPrefAccessToken()
-        val token = viewModel.accessToken
 
-        viewModel.employeeData(token).observe(viewLifecycleOwner) {
+        val token = viewModel.getSharedPrefAccessToken()
+
+        viewModel.employeeData(token.toString()).observe(viewLifecycleOwner) {
             binding.employeeRecyclerView.apply {
                 adapter = EmployeeAdapter(requireContext(), it.sortedBy { it.first_name })
                 layoutManager =
@@ -45,7 +45,7 @@ class HomeFragment : Fragment() {
             requireView().navigation(R.id.action_homeFragment_to_loagingFragment)
         }
 
-        viewModel.repository.errorResponse.observe(viewLifecycleOwner) {
+        viewModel.errorResponse.observe(viewLifecycleOwner) {
             requireContext().showToast(it.message)
         }
 

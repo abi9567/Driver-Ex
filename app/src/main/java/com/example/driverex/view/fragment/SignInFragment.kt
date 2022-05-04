@@ -8,13 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.driverex.R
 import com.example.driverex.databinding.FragmentSignInBinding
 import com.example.driverex.utils.navigation
-import com.example.driverex.utils.sharedPref
 import com.example.driverex.viewmodel.EmployeeViewModel
 import com.example.driverex.utils.showToast
+import com.example.driverex.utils.snackBar
 
 class SignInFragment : Fragment() {
 
@@ -37,30 +39,55 @@ class SignInFragment : Fragment() {
 
         binding.signInButton2.setOnClickListener { view ->
 
-            viewModel.login(binding.emailInput.text.toString(), binding.passwordInput.text.toString()).observe(viewLifecycleOwner) {
-
-            viewModel.setSharedPrefToken(it.access_token)
-                view.navigation(R.id.action_signInFragment_to_homeFragment)
+            if (binding.emailInput.text == null || binding.passwordInput.text == null) {
+                requireContext().showToast("Enter Both Username & Password")
             }
 
-            viewModel.repository.errorResponse.observe(viewLifecycleOwner) {
-                requireContext().showToast(it.message)
-            }
+            else {
+                viewModel.login(binding.emailInput.text.toString(), binding.passwordInput.text.toString()).observe(viewLifecycleOwner) { loginResponse ->
 
-            viewModel.setLogINOut("IN")
+                        viewModel.proceed.observe(viewLifecycleOwner) { proceed ->
 
-            viewModel.repository.isLoading.observe(viewLifecycleOwner) {
-                if (it) {
-                    binding.progressBar.visibility = View.VISIBLE
+                            if (proceed) {
+                                if (findNavController().currentDestination?.id == R.id.signInFragment) {
+                                   view.navigation(R.id.action_signInFragment_to_homeFragment)
+                                    viewModel.setLogINOut("IN")
+                                    viewModel.setSharedPrefToken(loginResponse.access_token)
+
+//                                view.navigation()
+
+                                    viewModel.loginMessage.observe(viewLifecycleOwner) {
+                                        requireView().snackBar(it)
+                                    }
+
+                                }
+                            }
+
+
+                        }
+
+                    }
+
+                viewModel.errorResponse.observe(viewLifecycleOwner) {
+                    requireContext().showToast(it.message)
                 }
 
-                else {
+        }
+
+            viewModel.isLoading.observe(viewLifecycleOwner) {
+                if (it) {
+                    binding.progressBar.visibility = View.VISIBLE
+                } else {
                     binding.progressBar.visibility = View.GONE
                 }
             }
 
-        }
+
+
+
+    }
 
             return binding.root
         }
     }
+
