@@ -31,9 +31,9 @@ class UserDetailsFragment : Fragment() {
 
         viewModel.getSharedPrefFavData()
 
-        viewModel.favourite.observe(viewLifecycleOwner) {
+        val favo = viewModel.getSharedPrefFavData()
 
-            when (it) {
+            when (favo) {
                 "YES" -> {
                     binding.favouriteButton.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.app_color))
                     binding.favouriteButton.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.app_color))
@@ -44,7 +44,7 @@ class UserDetailsFragment : Fragment() {
                 }
             }
 
-        }
+
 
         val bundle = arguments?.getParcelable<EmployeeData>("bundle")!!
 

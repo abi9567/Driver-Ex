@@ -1,12 +1,33 @@
 package com.example.driverex.model.network
 
+import com.example.driverex.BuildConfig
 import com.google.gson.GsonBuilder
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
 
 object RetrofitService {
 
     fun retrofitService() : APIInterface {
+
+        val logging = HttpLoggingInterceptor()
+
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+
+        // Play Store
+//        if (BuildConfig.DEBUG) {
+//
+//        }
+//        else {
+//            logging.setLevel(HttpLoggingInterceptor.Level.NONE)
+//        }
+
+        val client = OkHttpClient.Builder()
+            .addInterceptor(logging)
+            .build()
+
 
         val gson = GsonBuilder()
             .setLenient()
@@ -15,6 +36,7 @@ object RetrofitService {
         val retrofit =  Retrofit.Builder()
             .baseUrl("http://training.pixbit.in/api/")
             .addConverterFactory(GsonConverterFactory.create(gson))
+            .client(client)
             .build()
             return retrofit.create(APIInterface::class.java)
     }

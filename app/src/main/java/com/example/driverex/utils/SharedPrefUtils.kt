@@ -8,8 +8,8 @@ import com.example.driverex.R
 
 private lateinit var sharedPref : SharedPreferences
 var accessToken : String = ""
-val loginCheck = MutableLiveData<String>()
-val favourite = MutableLiveData<String>()
+var loginCheck : String = ""
+
 
 object SharedPrefUtils {
 
@@ -23,7 +23,6 @@ object SharedPrefUtils {
     }
 
     fun setSharedPrefToken(token: String) {
-
         sharedPref.edit()
             .putString(MyApplication.appContext.getString(R.string.sharedPrefAccessToken), token)
             .apply()
@@ -32,28 +31,27 @@ object SharedPrefUtils {
 
     fun setLogINOut(input: String) {
 
-        loginCheck.value = input
+        loginCheck = input
         sharedPref.edit()
-            .putString(MyApplication.appContext.getString(R.string.sharedPrefLogCheck), loginCheck.value)
+            .putString(MyApplication.appContext.getString(R.string.sharedPrefLogCheck), loginCheck)
             .apply()
     }
 
-    fun getSharedPrefLogin() : MutableLiveData<String> {
+    fun getSharedPrefLogin() : String {
 
-        loginCheck.value = sharedPref.getString(MyApplication.appContext.getString(R.string.sharedPrefLogCheck), null)
+        loginCheck = sharedPref.getString(MyApplication.appContext.getString(R.string.sharedPrefLogCheck), null)!!
         return loginCheck
     }
 
 
-    fun getSharedPrefFavData() : MutableLiveData<String> {
-        favourite.value = sharedPref.getString(MyApplication.appContext.getString(R.string.sharedPrefFavKey), null)
-        return favourite
+    fun getSharedPrefFavData() : String {
+        return  sharedPref.getString(MyApplication.appContext.getString(R.string.sharedPrefFavKey), null)!!
+
     }
 
     fun favouriteSharedPref() {
-        favourite.value = "YES"
         sharedPref.edit()
-            .putString(MyApplication.appContext.getString(R.string.sharedPrefFavKey), favourite.value)
+            .putString(MyApplication.appContext.getString(R.string.sharedPrefFavKey), "YES")
             .apply()
     }
 }

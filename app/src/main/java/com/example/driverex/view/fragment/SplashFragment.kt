@@ -30,9 +30,9 @@ class SplashFragment : Fragment() {
         binding = FragmentSplashBinding.inflate(layoutInflater,container,false)
         viewModel = ViewModelProvider(requireActivity()).get(EmployeeViewModel::class.java)
 
-        viewModel.getSharedPrefLogin().observe(viewLifecycleOwner) {
+        val check = viewModel.getSharedPrefLogin()
 
-            when (it) {
+            when (check) {
                 "IN" ->
                     Handler(Looper.getMainLooper()).postDelayed({
                         requireView().navigation(R.id.action_splashFragment_to_homeFragment)
@@ -45,7 +45,7 @@ class SplashFragment : Fragment() {
 
             }
 
-        }
+
 
 
         return binding.root
