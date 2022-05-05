@@ -1,6 +1,7 @@
 package com.example.driverex.model.network
 
 import android.util.Log
+import androidx.annotation.Nullable
 import androidx.lifecycle.MutableLiveData
 import com.example.driverex.model.data.*
 import retrofit2.Call
@@ -12,6 +13,9 @@ class EmployeeRepository {
 
     val loginResponse = MutableLiveData<LoginResponse>()
     val errorResponse = MutableLiveData<ErrorResponse>()
+
+    val employeeErrorResponse = MutableLiveData<EmployeeErrorResponse>()
+
     val loginMessage  = MutableLiveData<String>()
     val isLoading = MutableLiveData<Boolean>(false)
     val proceed = MutableLiveData<Boolean>(false)
@@ -69,7 +73,7 @@ class EmployeeRepository {
 
         Log.d("Token",token)
 
-        RetrofitService.retrofitService().employeeData("Bearer $token").enqueue(object : Callback<DefaultResponse<EmployeeResponse>?> {
+        RetrofitService.retrofitService().employeeData(token = "Bearer $token").enqueue(object : Callback<DefaultResponse<EmployeeResponse>?> {
 
 
             override fun onResponse(
@@ -79,11 +83,17 @@ class EmployeeRepository {
                 if (response.isSuccessful) {
                     employeeDetails.value = response.body()?.data?.data
                 }
+
+                if (!response.isSuccessful) {
+                    Log.d("REPOSIT",response.message())
+                    employeeErrorResponse.value = EmployeeErrorResponse(response.message())
+                }
+
             }
 
             override fun onFailure(call: Call<DefaultResponse<EmployeeResponse>?>, t: Throwable) {
-                Log.d("REPOSIT",t.printStackTrace().toString())
-                errorResponse.value = ErrorResponse(t.message.toString())
+                Log.d("REPOSIT",t.message.toString())
+                employeeErrorResponse.value = EmployeeErrorResponse(t.message.toString())
             }
         })
 

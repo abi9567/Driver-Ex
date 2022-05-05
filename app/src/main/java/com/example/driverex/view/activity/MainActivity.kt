@@ -7,17 +7,21 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.driverex.MyApplication
 import com.example.driverex.R
+import com.example.driverex.databinding.ActivityMainBinding
 import com.example.driverex.utils.showToast
 
 
 class MainActivity : AppCompatActivity() {
 
     private var backPress: Boolean = false
+    private lateinit var binding : ActivityMainBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         backPress = false
 

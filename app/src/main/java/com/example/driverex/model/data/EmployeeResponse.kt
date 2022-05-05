@@ -48,3 +48,7 @@ import kotlinx.parcelize.Parcelize
             val url: String
         ) : Parcelable
 
+data class EmployeeErrorResponse
+    (
+    val message : String
+)

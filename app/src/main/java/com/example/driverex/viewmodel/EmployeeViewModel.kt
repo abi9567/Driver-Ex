@@ -1,35 +1,25 @@
 package com.example.driverex.viewmodel
 
-import android.app.Application
-import android.content.Context
-import android.content.SharedPreferences
-import android.provider.Settings.Global.getString
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.annotation.Nullable
 import androidx.lifecycle.*
-import androidx.navigation.navArgument
-import com.example.driverex.MyApplication
-import com.example.driverex.R
 import com.example.driverex.model.data.*
 import com.example.driverex.model.network.EmployeeRepository
-import com.example.driverex.model.network.RetrofitService
+
 import com.example.driverex.utils.SharedPrefUtils
-import com.example.driverex.utils.sharedPref
-import java.util.logging.Handler
 
 
 class EmployeeViewModel : ViewModel() {
 
-//  private val sharedPref : SharedPreferences
 
     val repository = EmployeeRepository()
-    val loginCheck = MutableLiveData<String>()
-//  var accessToken : String = ""
-
     val isLoading : MutableLiveData<Boolean> = repository.isLoading
     val errorResponse : MutableLiveData<ErrorResponse> = repository.errorResponse
+
+    val employeeErrorResponse : MutableLiveData<EmployeeErrorResponse> = repository.employeeErrorResponse
+
     val loginMessage : MutableLiveData<String> = repository.loginMessage
     val proceed : MutableLiveData<Boolean> = repository.proceed
-    var loginResponse = MutableLiveData<LoginResponse>()
+
 
 
     fun getSharedPrefAccessToken() : String {

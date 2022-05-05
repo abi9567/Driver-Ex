@@ -23,6 +23,7 @@ interface APIInterface {
     @GET("employees")
     fun employeeData
     (
+        @Header("Accept") accept:String ="application/json",
         @Header("Authorization") token : String
 
     ) : Call<DefaultResponse<EmployeeResponse>>

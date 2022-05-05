@@ -14,20 +14,18 @@ object RetrofitService {
 
         val logging = HttpLoggingInterceptor()
 
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
-        // Play Store
-//        if (BuildConfig.DEBUG) {
-//
-//        }
-//        else {
-//            logging.setLevel(HttpLoggingInterceptor.Level.NONE)
-//        }
+//      Play Store
+        if (BuildConfig.DEBUG) {
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+        }
+        else {
+            logging.setLevel(HttpLoggingInterceptor.Level.NONE)
+        }
 
         val client = OkHttpClient.Builder()
             .addInterceptor(logging)
             .build()
-
 
         val gson = GsonBuilder()
             .setLenient()

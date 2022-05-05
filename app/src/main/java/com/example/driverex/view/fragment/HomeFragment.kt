@@ -32,7 +32,7 @@ class HomeFragment : Fragment() {
 
         val token = viewModel.getSharedPrefAccessToken()
 
-        viewModel.employeeData(token.toString()).observe(viewLifecycleOwner) {
+        viewModel.employeeData(token).observe(viewLifecycleOwner) {
             binding.employeeRecyclerView.apply {
                 adapter = EmployeeAdapter(requireContext(), it.sortedBy { it.first_name })
                 layoutManager =
@@ -45,7 +45,7 @@ class HomeFragment : Fragment() {
             requireView().navigation(R.id.action_homeFragment_to_loagingFragment)
         }
 
-        viewModel.errorResponse.observe(viewLifecycleOwner) {
+        viewModel.employeeErrorResponse.observe(viewLifecycleOwner) {
             requireContext().showToast(it.message)
         }
 

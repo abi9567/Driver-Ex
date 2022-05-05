@@ -4,6 +4,8 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.driverex.R
@@ -40,6 +42,8 @@ class EmployeeAdapter(val context: Context, val employeeList: List<EmployeeData>
     override fun getItemCount(): Int {
         return employeeList.size
     }
+
+
 
 
 }

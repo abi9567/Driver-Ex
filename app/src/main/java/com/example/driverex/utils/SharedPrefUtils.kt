@@ -28,7 +28,6 @@ object SharedPrefUtils {
             .apply()
     }
 
-
     fun setLogINOut(input: String) {
 
         loginCheck = input
@@ -38,14 +37,13 @@ object SharedPrefUtils {
     }
 
     fun getSharedPrefLogin() : String {
-
-        loginCheck = sharedPref.getString(MyApplication.appContext.getString(R.string.sharedPrefLogCheck), null)!!
+        loginCheck = sharedPref.getString(MyApplication.appContext.getString(R.string.sharedPrefLogCheck), "OUT")!!
         return loginCheck
     }
 
 
     fun getSharedPrefFavData() : String {
-        return  sharedPref.getString(MyApplication.appContext.getString(R.string.sharedPrefFavKey), null)!!
+        return  sharedPref.getString(MyApplication.appContext.getString(R.string.sharedPrefFavKey), "NO")!!
 
     }
 

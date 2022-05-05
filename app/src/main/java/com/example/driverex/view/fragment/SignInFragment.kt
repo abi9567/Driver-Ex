@@ -67,12 +67,11 @@ class SignInFragment : Fragment() {
                         }
 
                     }
-
-                viewModel.errorResponse.observe(viewLifecycleOwner) {
-                    requireContext().showToast(it.message)
-                }
-
         }
+
+            viewModel.errorResponse.observe(viewLifecycleOwner) {
+                requireContext().showToast(it.message)
+            }
 
             viewModel.isLoading.observe(viewLifecycleOwner) {
                 if (it) {
