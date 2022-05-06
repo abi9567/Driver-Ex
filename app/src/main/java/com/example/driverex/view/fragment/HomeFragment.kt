@@ -47,6 +47,9 @@ class HomeFragment : Fragment() {
 
         viewModel.employeeErrorResponse.observe(viewLifecycleOwner) {
             requireContext().showToast(it.message)
+            if (it.message.equals("Unauthorized")) {
+                requireView().navigation(R.id.action_homeFragment_to_loagingFragment)
+            }
         }
 
         return binding.root
