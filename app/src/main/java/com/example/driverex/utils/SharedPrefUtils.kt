@@ -1,9 +1,9 @@
 package com.example.driverex.utils
 
 import android.content.SharedPreferences
-import androidx.lifecycle.MutableLiveData
 import com.example.driverex.MyApplication
 import com.example.driverex.R
+import com.example.driverex.extention.sharedPref
 
 
 private lateinit var sharedPref : SharedPreferences

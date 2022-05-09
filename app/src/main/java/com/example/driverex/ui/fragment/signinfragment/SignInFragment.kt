@@ -1,22 +1,19 @@
-package com.example.driverex.view.fragment
+package com.example.driverex.ui.fragment.signinfragment
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.driverex.R
 import com.example.driverex.databinding.FragmentSignInBinding
-import com.example.driverex.utils.navigation
+import com.example.driverex.extention.navigation
+import com.example.driverex.extention.showToast
+import com.example.driverex.extention.snackBar
 import com.example.driverex.viewmodel.EmployeeViewModel
-import com.example.driverex.utils.showToast
-import com.example.driverex.utils.snackBar
+
 
 class SignInFragment : Fragment() {
 

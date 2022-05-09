@@ -1,4 +1,4 @@
-package com.example.driverex.model.data
+package com.example.driverex.data.model
 
 data class DefaultResponse<T>(
     val `data`: T?,

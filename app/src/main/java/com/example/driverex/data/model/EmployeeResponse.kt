@@ -1,4 +1,4 @@
-package com.example.driverex.model.data
+package com.example.driverex.data.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

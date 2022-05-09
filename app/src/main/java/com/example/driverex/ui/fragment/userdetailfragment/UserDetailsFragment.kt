@@ -1,4 +1,4 @@
-package com.example.driverex.view.fragment
+package com.example.driverex.ui.fragment.userdetailfragment
 
 import android.content.res.ColorStateList
 import android.os.Bundle
@@ -10,9 +10,9 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.driverex.R
 import com.example.driverex.databinding.FragmentUserDetailsBinding
-import com.example.driverex.model.data.EmployeeData
-import com.example.driverex.utils.navigation
-import com.example.driverex.utils.snackBar
+import com.example.driverex.data.model.EmployeeData
+import com.example.driverex.extention.navigation
+import com.example.driverex.extention.snackBar
 import com.example.driverex.viewmodel.EmployeeViewModel
 
 

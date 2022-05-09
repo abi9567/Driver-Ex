@@ -1,16 +1,14 @@
-package com.example.driverex.view.adapter
+package com.example.driverex.ui.adapter
 
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.driverex.R
 import com.example.driverex.databinding.EmployeeIndividualRowBinding
-import com.example.driverex.model.data.EmployeeData
+import com.example.driverex.data.model.EmployeeData
 
 class EmployeeAdapter(val context: Context, val employeeList: List<EmployeeData>) : RecyclerView.Adapter<EmployeeAdapter.MyViewHolder>() {
 

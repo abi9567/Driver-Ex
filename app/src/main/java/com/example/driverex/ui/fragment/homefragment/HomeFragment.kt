@@ -1,6 +1,7 @@
-package com.example.driverex.view.fragment
+package com.example.driverex.ui.fragment.homefragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.driverex.R
 import com.example.driverex.databinding.FragmentHomeBinding
-import com.example.driverex.utils.navigation
-import com.example.driverex.utils.showToast
-import com.example.driverex.view.adapter.EmployeeAdapter
+import com.example.driverex.extention.navigation
+import com.example.driverex.ui.adapter.EmployeeAdapter
 import com.example.driverex.viewmodel.EmployeeViewModel
 
 
@@ -32,6 +32,7 @@ class HomeFragment : Fragment() {
 
         val token = viewModel.getSharedPrefAccessToken()
 
+
         viewModel.employeeData(token).observe(viewLifecycleOwner) {
             binding.employeeRecyclerView.apply {
                 adapter = EmployeeAdapter(requireContext(), it.sortedBy { it.first_name })
@@ -45,9 +46,10 @@ class HomeFragment : Fragment() {
             requireView().navigation(R.id.action_homeFragment_to_loagingFragment)
         }
 
-        viewModel.employeeErrorResponse.observe(viewLifecycleOwner) {
-            requireContext().showToast(it.message)
+
+       viewModel.employeeErrorResponse.observe(viewLifecycleOwner) {
             if (it.message.equals("Unauthorized")) {
+                Log.d("ViewModel",it.message)
                 requireView().navigation(R.id.action_homeFragment_to_loagingFragment)
             }
         }

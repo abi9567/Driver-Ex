@@ -1,9 +1,9 @@
-package com.example.driverex.model.network
+package com.example.driverex.data.network
 
 
-import com.example.driverex.model.data.DefaultResponse
-import com.example.driverex.model.data.EmployeeResponse
-import com.example.driverex.model.data.LoginResponse
+import com.example.driverex.data.model.DefaultResponse
+import com.example.driverex.data.model.EmployeeResponse
+import com.example.driverex.data.model.LoginResponse
 import retrofit2.Call
 import retrofit2.http.*
 

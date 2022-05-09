@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loagingFragment"
-        android:name="com.example.driverex.view.fragment.LandingFragment"
+        android:name="com.example.driverex.ui.fragment.landingfragment.LandingFragment"
         android:label="fragment_loaging"
         tools:layout="@layout/fragment_landing" >
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.example.driverex.view.fragment.SignInFragment"
+        android:name="com.example.driverex.ui.fragment.signinfragment.SignInFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in" >
         <action
@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.driverex.view.fragment.HomeFragment"
+        android:name="com.example.driverex.ui.fragment.homefragment.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/userDetailsFragment"
-        android:name="com.example.driverex.view.fragment.UserDetailsFragment"
+        android:name="com.example.driverex.ui.fragment.userdetailfragment.UserDetailsFragment"
         android:label="fragment_user_details"
         tools:layout="@layout/fragment_user_details" >
         <action
@@ -61,11 +61,11 @@
             app:exitAnim="@anim/right_to_left_animation" />
         <argument
             android:name="userBundle"
-            app:argType="com.example.driverex.model.data.EmployeeData" />
+            app:argType="com.example.driverex.data.model.EmployeeData" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.example.driverex.view.fragment.SplashFragment"
+        android:name="com.example.driverex.ui.fragment.splashfrag.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action

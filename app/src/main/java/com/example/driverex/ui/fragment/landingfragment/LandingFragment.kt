@@ -1,4 +1,4 @@
-package com.example.driverex.view.fragment
+package com.example.driverex.ui.fragment.landingfragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

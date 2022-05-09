@@ -1,9 +1,8 @@
 package com.example.driverex.viewmodel
 
-import androidx.annotation.Nullable
 import androidx.lifecycle.*
-import com.example.driverex.model.data.*
-import com.example.driverex.model.network.EmployeeRepository
+import com.example.driverex.data.model.*
+import com.example.driverex.data.network.EmployeeRepository
 
 import com.example.driverex.utils.SharedPrefUtils
 

@@ -1,9 +1,8 @@
-package com.example.driverex.model.network
+package com.example.driverex.data.network
 
 import android.util.Log
-import androidx.annotation.Nullable
 import androidx.lifecycle.MutableLiveData
-import com.example.driverex.model.data.*
+import com.example.driverex.data.model.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -81,10 +80,12 @@ class EmployeeRepository {
                 response: Response<DefaultResponse<EmployeeResponse>?>
             ) {
                 if (response.isSuccessful) {
+                    proceed.value = true
                     employeeDetails.value = response.body()?.data?.data
                 }
 
                 if (!response.isSuccessful) {
+                    proceed.value = false
                     Log.d("REPOSIT",response.message())
                     employeeErrorResponse.value = EmployeeErrorResponse(response.message())
                 }
@@ -92,11 +93,13 @@ class EmployeeRepository {
             }
 
             override fun onFailure(call: Call<DefaultResponse<EmployeeResponse>?>, t: Throwable) {
+                proceed.value = false
                 Log.d("REPOSIT",t.message.toString())
                 employeeErrorResponse.value = EmployeeErrorResponse(t.message.toString())
             }
         })
 
+        proceed.value = false
         return employeeDetails
 
     }

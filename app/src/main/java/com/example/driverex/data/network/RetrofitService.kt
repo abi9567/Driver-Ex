@@ -1,4 +1,4 @@
-package com.example.driverex.model.network
+package com.example.driverex.data.network
 
 import com.example.driverex.BuildConfig
 import com.google.gson.GsonBuilder

@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DriverEx">
         <activity
-            android:name=".view.activity.MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
