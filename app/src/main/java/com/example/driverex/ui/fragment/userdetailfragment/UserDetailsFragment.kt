@@ -7,19 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import com.example.driverex.R
 import com.example.driverex.databinding.FragmentUserDetailsBinding
-import com.example.driverex.data.model.EmployeeData
 import com.example.driverex.extention.navigation
 import com.example.driverex.extention.snackBar
-import com.example.driverex.viewmodel.EmployeeViewModel
+import com.example.driverex.utils.SharedPrefUtils
 
 
 class UserDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentUserDetailsBinding
-    private lateinit var viewModel : EmployeeViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,13 +26,11 @@ class UserDetailsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentUserDetailsBinding.inflate(layoutInflater, container, false)
-        viewModel = ViewModelProvider(requireActivity()).get(EmployeeViewModel::class.java)
 
-        viewModel.getSharedPrefFavData()
+        val arguments : UserDetailsFragmentArgs by navArgs()
 
-        val favo = viewModel.getSharedPrefFavData()
 
-            when (favo) {
+            when (SharedPrefUtils.getSharedPrefFavData()) {
                 "YES" -> {
                     binding.favouriteButton.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.app_color))
                     binding.favouriteButton.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.app_color))
@@ -46,23 +43,18 @@ class UserDetailsFragment : Fragment() {
 
 
 
-        val bundle = arguments?.getParcelable<EmployeeData>("bundle")!!
+//        val bundle = arguments?.getParcelable<EmployeeData>("bundle")!!
 
-        binding.userNameText.setText(
-            getString(
-                R.string.individual_name,
-                bundle.first_name,
-                bundle.last_name
-            )
-        )
-        binding.userMobileText.setText(bundle.mobile.toString())
-        binding.userWorkMobileText.setText(bundle.landline.toString())
-        binding.personalEmailText.setText(bundle.email)
+        binding.userNameText.setText(getString(R.string.individual_name, arguments.data.firstName,arguments.data.lastName))
+
+        binding.userMobileText.setText(arguments.data.mobileNumber.toString())
+        binding.userWorkMobileText.setText(arguments.data.landLineNumber.toString())
+        binding.personalEmailText.setText(arguments.data.email)
 
 
         binding.favouriteButton.setOnClickListener {
 
-            viewModel.favouriteSharedPref()
+            SharedPrefUtils.favouriteSharedPref()
             binding.favouriteButton.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.app_color))
             binding.favouriteButton.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.app_color))
             it.snackBar("Added to Favorite")

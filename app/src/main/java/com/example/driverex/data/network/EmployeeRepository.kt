@@ -1,107 +1,66 @@
 package com.example.driverex.data.network
 
 import android.util.Log
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import com.example.driverex.data.model.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
 class EmployeeRepository {
-
-    val loginResponse = MutableLiveData<LoginResponse>()
+    private val loginResponse = MutableLiveData<LoginResponse>()
     val errorResponse = MutableLiveData<ErrorResponse>()
-
     var employeeErrorResponse = EmployeeErrorResponse("")
-
-    val loginMessage  = MutableLiveData<String>()
+    val loginMessage = MutableLiveData<String>()
     val isLoading = MutableLiveData<Boolean>(false)
     val proceed = MutableLiveData<Boolean>(false)
 
-    val employeeDetails = MutableLiveData<List<EmployeeData>>()
+    private val response = RetrofitService.retrofitService()
+    private val employeeDetails = MutableLiveData<List<EmployeeData>>()
 
-    fun userLogin(userName: String, password: String) : MutableLiveData<LoginResponse> {
+    fun userLogin(userName: String, password: String): MutableLiveData<LoginResponse> {
 
-        isLoading.value = true
-        proceed.value = false
-
-        RetrofitService.retrofitService().userLogin(userName, password)
-            .enqueue(object : Callback<DefaultResponse<LoginResponse>?> {
-                override fun onResponse(
-                    call: Call<DefaultResponse<LoginResponse>?>,
-                    response: Response<DefaultResponse<LoginResponse>?>
-                ) {
-                    Log.d("RETRO", response.message())
-                    isLoading.value = false
-
-//                    if (response.body()?.message.equals("User Logged in")) {
-
-                    if (response.isSuccessful) {
-                        proceed.value = true
-                        loginMessage.value = response.body()?.message!!
-                        loginResponse.value = response.body()?.data!!
-
-                    }
-
-                    if (!response.isSuccessful) {
-                        proceed.value = false
-                        //Un Authorised
-                        Log.e("ResponseError", response.message())
-                        errorResponse.value = ErrorResponse(response.message())
-                    }
-//
-//                    else if (response.message().equals("Unauthorized")) {
-//
-//                    }
-                }
-
-                override fun onFailure(call: Call<DefaultResponse<LoginResponse>?>, t: Throwable) {
-                    proceed.value = false
-                    isLoading.value = false
-                    errorResponse.value = ErrorResponse(t.message ?: "Something Went Wrong")
-                }
-            })
-
-        proceed.value = false
+        CoroutineScope(Dispatchers.Main).launch {
+            val userLogin = response.userLogin(userName, password)
+            proceed.value = true
+            if (userLogin.isSuccessful)
+            {
+                loginMessage.value = userLogin.body()?.message!!
+                isLoading.value = true
+                proceed.value = true
+                loginResponse.value = userLogin.body()?.defaultData!!
+                Log.d("TOKEN", loginResponse.value?.accessToken.toString())
+            } else
+            {
+                proceed.value = false
+                errorResponse.value = ErrorResponse(userLogin.message())
+            }
+        }
         return loginResponse
-
     }
 
-    fun employeeData(token: String) : MutableLiveData<List<EmployeeData>> {
+    fun employeeData(token: String): MutableLiveData<List<EmployeeData>> {
 
-        Log.d("Token",token)
+        CoroutineScope(Dispatchers.Main).launch {
 
-        RetrofitService.retrofitService().employeeData(token = "Bearer $token").enqueue(object : Callback<DefaultResponse<EmployeeResponse>?> {
+            val employeeData = response.employeeData(token = "Bearer $token")
 
-
-            override fun onResponse(
-                call: Call<DefaultResponse<EmployeeResponse>?>,
-                response: Response<DefaultResponse<EmployeeResponse>?>
-            ) {
-                if (response.isSuccessful) {
-                    proceed.value = true
-                    employeeDetails.value = response.body()?.data?.data
-                }
-
-
-                else {
-                    proceed.value = false
-                    Log.d("REPOSIT",response.message())
-                    employeeErrorResponse = EmployeeErrorResponse(response.message())
-                }
-
-            }
-
-            override fun onFailure(call: Call<DefaultResponse<EmployeeResponse>?>, t: Throwable) {
+            if (employeeData.isSuccessful) {
+                proceed.value = true
+                employeeDetails.value = employeeData.body()?.defaultData?.employeeData
+            } else {
                 proceed.value = false
-                Log.d("REPOSIT",t.message.toString())
-                employeeErrorResponse = EmployeeErrorResponse(t.message.toString())
+                Log.d("REPOSIT", employeeData.message())
+                employeeErrorResponse = EmployeeErrorResponse(employeeData.message())
             }
-        })
+        }
 
-        proceed.value = false
         return employeeDetails
-
     }
 }

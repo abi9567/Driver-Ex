@@ -17,16 +17,18 @@ class LandingFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
 
         binding = FragmentLandingBinding.inflate(layoutInflater,container,false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.signInButton.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.action_loagingFragment_to_signInFragment)
         }
-
-
-        return binding.root
     }
 }

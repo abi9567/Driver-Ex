@@ -6,24 +6,30 @@ import kotlinx.parcelize.Parcelize
 
     @Parcelize
     data class EmployeeResponse(
-        @SerializedName("employeeData")
-        val `data`: List<EmployeeData>,
+        @SerializedName("data")
+        val employeeData: List<EmployeeData>,
     ) : Parcelable
 
         @Parcelize
         data class EmployeeData(
             @SerializedName("email")
             val email: String?,
-            @SerializedName("firstName")
-            val first_name: String?,
-            @SerializedName("landLineNumber")
-            val landline: Long?,
-            @SerializedName("lastName")
-            val last_name: String?,
-            @SerializedName("mobileNumber")
-            val mobile: Long?,
-            @SerializedName("profilePhoto")
-            val profile_picture: String?,
+
+            @SerializedName("first_name")
+            val firstName: String?,
+
+            @SerializedName("landline")
+            val landLineNumber: Long?,
+
+            @SerializedName("last_name")
+            val lastName: String?,
+
+            @SerializedName("mobile")
+            val mobileNumber: Long?,
+
+            @SerializedName("profile_picture")
+            val profilePhoto: String?,
+
         ) : Parcelable
 
 

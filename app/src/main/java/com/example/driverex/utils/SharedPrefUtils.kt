@@ -10,8 +10,6 @@ import com.example.driverex.extention.sharedPref
 
 
 private lateinit var sharedPref : SharedPreferences
-var accessToken : String = ""
-var loginCheck : String = ""
 
 
 object SharedPrefUtils {
@@ -21,8 +19,7 @@ object SharedPrefUtils {
     }
 
     fun getSharedPrefAccessToken() : String {
-        accessToken = sharedPref.getString(ACCESS_TOKEN, null).toString()
-        return accessToken
+        return sharedPref.getString(ACCESS_TOKEN, null).toString()
     }
 
     fun setSharedPrefToken(token: String) {
@@ -32,16 +29,13 @@ object SharedPrefUtils {
     }
 
     fun setLogINOut(input: String) {
-
-        loginCheck = input
         sharedPref.edit()
-            .putString(IN_OR_OUT, loginCheck)
+            .putString(IN_OR_OUT, input)
             .apply()
     }
 
     fun getSharedPrefLogin() : String {
-        loginCheck = sharedPref.getString(IN_OR_OUT, "OUT")!!
-        return loginCheck
+        return sharedPref.getString(IN_OR_OUT, "OUT")!!
     }
 
 

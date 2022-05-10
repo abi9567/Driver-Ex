@@ -7,18 +7,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import com.example.driverex.R
 import com.example.driverex.databinding.FragmentSplashBinding
 import com.example.driverex.extention.navigation
-import com.example.driverex.viewmodel.EmployeeViewModel
+import com.example.driverex.utils.SharedPrefUtils
 
 
 class SplashFragment : Fragment() {
 
     private lateinit var binding : FragmentSplashBinding
-    private lateinit var viewModel : EmployeeViewModel
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,12 +24,8 @@ class SplashFragment : Fragment() {
         // Inflate the layout for this fragment
 
         binding = FragmentSplashBinding.inflate(layoutInflater,container,false)
-        viewModel = ViewModelProvider(requireActivity()).get(EmployeeViewModel::class.java)
 
-        val check = viewModel.getSharedPrefLogin()
-
-
-            when (check) {
+            when (SharedPrefUtils.getSharedPrefLogin()) {
                 "IN" ->
                     Handler(Looper.getMainLooper()).postDelayed({
                         requireView().navigation(R.id.action_splashFragment_to_homeFragment)

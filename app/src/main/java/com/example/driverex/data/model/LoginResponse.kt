@@ -3,14 +3,14 @@ package com.example.driverex.data.model
 import com.google.gson.annotations.SerializedName
 
 data class LoginResponse(
-    @SerializedName("accessToken")
-    val access_token: String,
-    @SerializedName("tokenType")
-    val token_type: String,
+    @SerializedName("access_token")
+    val accessToken: String,
+    @SerializedName("token_type")
+    val tokenType: String,
 )
 
 data class ErrorResponse
     (
-    @SerializedName("errorMessage")
-    val message : String
+    @SerializedName("message")
+    val errorMessage : String
     )

@@ -13,7 +13,7 @@ interface APIInterface {
 
     @FormUrlEncoded
     @POST("login")
-    fun userLogin
+    suspend fun userLogin
     (
         @Field("email") email : String,
         @Field ("password") password : String
@@ -22,7 +22,7 @@ interface APIInterface {
 
 
     @GET("employees")
-    fun employeeData
+    suspend fun employeeData
     (
         @Header("Accept") accept:String ="application/json",
         @Header("Authorization") token : String
