@@ -1,5 +1,6 @@
 package com.example.driverex.data.network
 
+import android.accounts.NetworkErrorException
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
@@ -11,6 +12,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
 
 
 class EmployeeRepository {
@@ -20,15 +22,16 @@ class EmployeeRepository {
     val loginMessage = MutableLiveData<String>()
     val isLoading = MutableLiveData<Boolean>(false)
     val proceed = MutableLiveData<Boolean>(false)
+    private val employeeDetails = MutableLiveData<List<EmployeeData>>()
 
     private val response = RetrofitService.retrofitService()
-    private val employeeDetails = MutableLiveData<List<EmployeeData>>()
 
     fun userLogin(userName: String, password: String): MutableLiveData<LoginResponse> {
 
         CoroutineScope(Dispatchers.Main).launch {
-            val userLogin = response.userLogin(userName, password)
-            proceed.value = true
+            try {
+                val userLogin = response.userLogin(userName, password)
+
             if (userLogin.isSuccessful)
             {
                 loginMessage.value = userLogin.body()?.message!!
@@ -40,6 +43,12 @@ class EmployeeRepository {
             {
                 proceed.value = false
                 errorResponse.value = ErrorResponse(userLogin.message())
+                Log.d("Exception", userLogin.message())
+            }
+
+            } catch (e: NetworkErrorException) {
+                errorResponse.value = ErrorResponse(e.message.toString())
+                Log.d("Exception", e.message.toString())
             }
         }
         return loginResponse
@@ -49,18 +58,21 @@ class EmployeeRepository {
 
         CoroutineScope(Dispatchers.Main).launch {
 
-            val employeeData = response.employeeData(token = "Bearer $token")
-
-            if (employeeData.isSuccessful) {
-                proceed.value = true
-                employeeDetails.value = employeeData.body()?.defaultData?.employeeData
-            } else {
-                proceed.value = false
-                Log.d("REPOSIT", employeeData.message())
-                employeeErrorResponse = EmployeeErrorResponse(employeeData.message())
+            try {
+                val employeeData = response.employeeData(token = "Bearer $token")
+                if (employeeData.isSuccessful) {
+                    proceed.value = true
+                    employeeDetails.value = employeeData.body()?.defaultData?.employeeData
+                } else {
+                    proceed.value = false
+                    Log.d("REPOSIT", employeeData.code().toString())
+                    employeeErrorResponse = EmployeeErrorResponse(employeeData.message())
+                }
+            }
+            catch (e:Exception) {
+                employeeErrorResponse = EmployeeErrorResponse(e.message.toString())
             }
         }
-
         return employeeDetails
     }
 }

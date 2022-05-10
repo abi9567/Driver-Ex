@@ -19,7 +19,4 @@ class SignInViewModel : ViewModel() {
         return repository.userLogin(email,password)
     }
 
-
-
-
 }
