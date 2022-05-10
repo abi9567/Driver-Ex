@@ -14,7 +14,7 @@ class EmployeeViewModel : ViewModel() {
     val isLoading : MutableLiveData<Boolean> = repository.isLoading
     val errorResponse : MutableLiveData<ErrorResponse> = repository.errorResponse
 
-    val employeeErrorResponse : MutableLiveData<EmployeeErrorResponse> = repository.employeeErrorResponse
+    var employeeErrorResponse = repository.employeeErrorResponse
 
     val loginMessage : MutableLiveData<String> = repository.loginMessage
     val proceed : MutableLiveData<Boolean> = repository.proceed

@@ -10,7 +10,7 @@ import com.example.driverex.R
 import com.example.driverex.databinding.EmployeeIndividualRowBinding
 import com.example.driverex.data.model.EmployeeData
 
-class EmployeeAdapter(val context: Context, val employeeList: List<EmployeeData>) : RecyclerView.Adapter<EmployeeAdapter.MyViewHolder>() {
+class EmployeeAdapter(val context: Context, val employeeList: List<EmployeeData>, onclick) : RecyclerView.Adapter<EmployeeAdapter.MyViewHolder>() {
 
 
     class MyViewHolder (val binding : EmployeeIndividualRowBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -31,7 +31,7 @@ class EmployeeAdapter(val context: Context, val employeeList: List<EmployeeData>
 
             val bundle = Bundle()
             bundle.putParcelable("bundle",currentItem)
-            Navigation.findNavController(it).navigate(R.id.action_homeFragment_to_userDetailsFragment,bundle)
+            Navigation.findNavController(it).navigate(R.id.action_homeFragment_to_userDetailsFragment, currentItem)
 
         }
 

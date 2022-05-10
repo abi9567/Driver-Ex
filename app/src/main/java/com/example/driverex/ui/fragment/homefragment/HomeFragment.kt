@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.driverex.R
+import com.example.driverex.data.model.EmployeeData
 import com.example.driverex.databinding.FragmentHomeBinding
 import com.example.driverex.extention.navigation
 import com.example.driverex.ui.adapter.EmployeeAdapter
@@ -47,14 +49,23 @@ class HomeFragment : Fragment() {
         }
 
 
-       viewModel.employeeErrorResponse.observe(viewLifecycleOwner) {
-            if (it.message.equals("Unauthorized")) {
-                Log.d("ViewModel",it.message)
-                requireView().navigation(R.id.action_homeFragment_to_loagingFragment)
-            }
-        }
+//       viewModel.employeeErrorResponse.observe(viewLifecycleOwner) {
+//            if (it.message.equals("Unauthorized")) {
+//                Log.d("ViewModel",it.message)
+//                requireView().navigation(R.id.action_homeFragment_to_loagingFragment)
+//            }
+//        }
+
+
 
         return binding.root
+    }
+
+    fun navigation() {
+        var data = EmployeeData(
+
+        )
+        findNavController().navigate(R.id.action_homeFragment_to_userDetailsFragment, data)
     }
 
 }

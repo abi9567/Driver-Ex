@@ -60,7 +60,7 @@
             app:enterAnim="@anim/left_to_right_animation"
             app:exitAnim="@anim/right_to_left_animation" />
         <argument
-            android:name="userBundle"
+            android:name="data"
             app:argType="com.example.driverex.data.model.EmployeeData" />
     </fragment>
     <fragment

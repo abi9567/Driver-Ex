@@ -13,7 +13,7 @@ class EmployeeRepository {
     val loginResponse = MutableLiveData<LoginResponse>()
     val errorResponse = MutableLiveData<ErrorResponse>()
 
-    val employeeErrorResponse = MutableLiveData<EmployeeErrorResponse>()
+    var employeeErrorResponse = EmployeeErrorResponse("")
 
     val loginMessage  = MutableLiveData<String>()
     val isLoading = MutableLiveData<Boolean>(false)
@@ -84,10 +84,11 @@ class EmployeeRepository {
                     employeeDetails.value = response.body()?.data?.data
                 }
 
-                if (!response.isSuccessful) {
+
+                else {
                     proceed.value = false
                     Log.d("REPOSIT",response.message())
-                    employeeErrorResponse.value = EmployeeErrorResponse(response.message())
+                    employeeErrorResponse = EmployeeErrorResponse(response.message())
                 }
 
             }
@@ -95,7 +96,7 @@ class EmployeeRepository {
             override fun onFailure(call: Call<DefaultResponse<EmployeeResponse>?>, t: Throwable) {
                 proceed.value = false
                 Log.d("REPOSIT",t.message.toString())
-                employeeErrorResponse.value = EmployeeErrorResponse(t.message.toString())
+                employeeErrorResponse = EmployeeErrorResponse(t.message.toString())
             }
         })
 
