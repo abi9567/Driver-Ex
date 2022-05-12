@@ -18,6 +18,7 @@ import com.example.driverex.utils.SharedPrefUtils
 class UserDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentUserDetailsBinding
+    private val arguments : UserDetailsFragmentArgs by navArgs()
 
 
     override fun onCreateView(
@@ -26,43 +27,58 @@ class UserDetailsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentUserDetailsBinding.inflate(layoutInflater, container, false)
+        binding.tbUserDetail.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
 
-        val arguments : UserDetailsFragmentArgs by navArgs()
-
-
-            when (SharedPrefUtils.getSharedPrefFavData()) {
-                "YES" -> {
-                    binding.favouriteButton.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.app_color))
-                    binding.favouriteButton.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.app_color))
-                }
-                else -> {
-                    binding.favouriteButton.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.white))
-                    binding.favouriteButton.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.black))
-                }
-            }
-
-
-
-//        val bundle = arguments?.getParcelable<EmployeeData>("bundle")!!
-
-        binding.userNameText.setText(getString(R.string.individual_name, arguments.data.firstName,arguments.data.lastName))
-
-        binding.userMobileText.setText(arguments.data.mobileNumber.toString())
-        binding.userWorkMobileText.setText(arguments.data.landLineNumber.toString())
-        binding.personalEmailText.setText(arguments.data.email)
-
-
-        binding.favouriteButton.setOnClickListener {
-
-            SharedPrefUtils.favouriteSharedPref()
-            binding.favouriteButton.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.app_color))
-            binding.favouriteButton.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.app_color))
-            it.snackBar("Added to Favorite")
-        }
-
-        binding.toolBarDetailPage.goBack.setOnClickListener {
+        binding.tbUserDetail.setNavigationOnClickListener {
             it.navigation(R.id.action_userDetailsFragment_to_homeFragment)
         }
-            return binding.root
+
+
+        return binding.root
+
+        }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+//        binding.toolBarDetailPage.goBack.setOnClickListener {
+//            it.navigation(R.id.action_userDetailsFragment_to_homeFragment)
+//        }
+
+
+        binding.fabFavourite.setOnClickListener {
+            settingFav()
+        }
+
+        settingText()
+        favButton()
+
+    }
+
+    private fun settingFav() {
+        SharedPrefUtils.favouriteSharedPref()
+        binding.fabFavourite.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.app_color))
+        binding.fabFavourite.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.app_color))
+        view?.snackBar("Added to Favorite")
+    }
+
+    private fun favButton() {
+        when (SharedPrefUtils.getSharedPrefFavData()) {
+            "YES" -> {
+                binding.fabFavourite.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.app_color))
+                binding.fabFavourite.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.app_color))
+            }
+            else -> {
+                binding.fabFavourite.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.white))
+                binding.fabFavourite.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.black))
+            }
         }
     }
+
+    private fun settingText() {
+        binding.tvName.setText(getString(R.string.name, arguments.data.firstName,arguments.data.lastName))
+        binding.tvMobileNum.setText(arguments.data.mobileNumber.toString())
+        binding.tvOffice.setText(arguments.data.landLineNumber.toString())
+        binding.tvPersonalEmail.setText(arguments.data.email)
+    }
+}

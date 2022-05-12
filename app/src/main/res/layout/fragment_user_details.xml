@@ -1,205 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragment.userdetailfragment.UserDetailsFragment">
 
-
-
-    <TextView
-        android:id="@+id/personal_emailText"
-        style="@style/user_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="12dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/imageView11"
-        app:layout_constraintTop_toBottomOf="@+id/space4" />
-
-    <ImageView
-        android:id="@+id/imageView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:src="@drawable/ic_baseline_mail_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/space4" />
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:text="@string/personal"
-        app:layout_constraintStart_toEndOf="@+id/imageView11"
-        app:layout_constraintTop_toBottomOf="@+id/personal_emailText" />
-
-    <Space
-        android:id="@+id/space3"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tbUserDetail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="152dp"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        tools:layout_editor_absoluteX="3dp" />
-
-    <Space
-        android:id="@+id/space4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="192dp"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <TextView
-        android:id="@+id/user_work_mobileText"
-        style="@style/user_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/userMobileWorkIcon"
-        app:layout_constraintTop_toBottomOf="@+id/space2" />
-
-    <ImageView
-        android:id="@+id/userMobileWorkIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:src="@drawable/ic_baseline_call_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/space2" />
-
-    <ImageView
-        android:id="@+id/userWorkMobileIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_baseline_message_24"
+        android:layout_height="49dp"
+        android:background="@color/tool_bar_color"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/space2" />
+        app:layout_constraintTop_toTopOf="parent">
+    </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:text="@string/work"
-        app:layout_constraintStart_toEndOf="@+id/userMobileWorkIcon"
-        app:layout_constraintTop_toBottomOf="@+id/user_work_mobileText" />
-
-    <ImageView
-        android:id="@+id/imageView"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:scaleType="center"
-        android:src="@drawable/contact_photo"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp" />
+        android:paddingBottom="25dp"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvPersonalEmail"
+                style="@style/employeeDetailStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="55dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="55dp"
+                android:maxLines="2"
+                android:text="TextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivSendMail"
+                app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+            <ImageView
+                android:id="@+id/ivSendMail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="28dp"
+                android:src="@drawable/ic_baseline_mail_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+            <TextView
+                android:id="@+id/tvPersonal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/personal"
+                app:layout_constraintStart_toEndOf="@+id/ivSendMail"
+                app:layout_constraintTop_toBottomOf="@+id/tvPersonalEmail" />
+
+            <TextView
+                android:id="@+id/tvOfficeNum"
+                style="@style/employeeDetailStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="55dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="55dp"
+                android:maxLines="2"
+                android:text="TextView"
+                app:layout_constraintEnd_toStartOf="@+id/ivWorkMsg"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/ivWorkNum"
+                app:layout_constraintTop_toBottomOf="@+id/tvMobile" />
+
+            <ImageView
+                android:id="@+id/ivWorkNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:src="@drawable/ic_baseline_call_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvMobile" />
+
+            <ImageView
+                android:id="@+id/ivWorkMsg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_baseline_message_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivMobileMsg" />
+
+            <TextView
+                android:id="@+id/tvOffice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/work"
+                app:layout_constraintStart_toEndOf="@+id/ivWorkNum"
+                app:layout_constraintTop_toBottomOf="@+id/tvOfficeNum" />
+
+            <ImageView
+                android:id="@+id/ivUserPhoto"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:scaleType="center"
+                android:src="@drawable/contact_photo"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="0dp" />
 
 
-    <ImageView
-        android:id="@+id/userMobileIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/ic_baseline_call_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/space" />
+            <ImageView
+                android:id="@+id/ivMobile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/ic_baseline_call_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivUserPhoto" />
 
-    <TextView
-        android:id="@+id/user_mobileText"
-        style="@style/user_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/userMobileIcon"
-        app:layout_constraintTop_toBottomOf="@+id/space" />
+            <TextView
+                android:id="@+id/tvMobileNum"
+                style="@style/employeeDetailStyle"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="55dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="55dp"
+                android:layout_width="match_parent"
+                android:maxLines="2"
+                android:text="TextView"
+                app:layout_constraintEnd_toStartOf="@+id/ivMobileMsg"
+                app:layout_constraintStart_toEndOf="@+id/ivMobile"
+                app:layout_constraintTop_toBottomOf="@+id/ivUserPhoto" />
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+            <TextView
+                android:id="@+id/tvMobile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
-        android:text="@string/mobile"
-        app:layout_constraintStart_toEndOf="@+id/userMobileIcon"
-        app:layout_constraintTop_toBottomOf="@+id/user_mobileText" />
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/mobile"
+                app:layout_constraintStart_toEndOf="@+id/ivMobile"
+                app:layout_constraintTop_toBottomOf="@+id/tvMobileNum" />
 
-    <ImageView
-        android:id="@+id/userMobileMessageIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_baseline_message_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/space" />
+            <ImageView
+                android:id="@+id/ivMobileMsg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_baseline_message_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivUserPhoto" />
 
-    <Space
-        android:id="@+id/space"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        tools:layout_editor_absoluteX="0dp" />
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="55dp"
+                android:layout_marginTop="15dp"
+                android:background="#AEAEAE"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvOffice" />
 
-    <Space
-        android:id="@+id/space2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        tools:layout_editor_absoluteX="0dp" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabFavourite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/white"
+                android:clickable="true"
+                android:src="@drawable/ic_baseline_star_24"
+                app:layout_constraintBottom_toBottomOf="@+id/ivUserPhoto"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    <View
-        android:id="@+id/view2"
-        android:layout_width="350dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="11dp"
-        android:background="#AEAEAE"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/space3" />
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_marginEnd="65dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="52dp"
+                android:layout_marginBottom="24dp"
+                android:text="TextView"
+                android:textColor="@color/app_color"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/ivUserPhoto"
+                app:layout_constraintEnd_toStartOf="@+id/fabFavourite"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/favouriteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="360dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/white"
-        android:clickable="true"
-        android:src="@drawable/ic_baseline_star_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/userNameText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="340dp"
-        android:textColor="@color/app_color"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.113"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <include
-        android:id="@+id/toolBarDetailPage"
-        layout="@layout/tool_bar_user_detail_page"/>
+    </ScrollView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

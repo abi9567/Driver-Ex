@@ -8,7 +8,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/employee_individual_image"
+        android:id="@+id/ivEmployeeProfilePic"
         android:layout_width="82dp"
         android:layout_height="74dp"
         android:layout_marginTop="5dp"
@@ -18,7 +18,7 @@
         app:srcCompat="@drawable/admin" />
 
     <TextView
-        android:id="@+id/employee_individual_name"
+        android:id="@+id/tvEmployeeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -27,7 +27,7 @@
         android:textSize="19sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.081"
-        app:layout_constraintStart_toEndOf="@+id/employee_individual_image"
+        app:layout_constraintStart_toEndOf="@+id/ivEmployeeProfilePic"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
@@ -35,7 +35,7 @@
         android:layout_height="2dp"
         android:layout_marginTop="5dp"
         android:background="#AEAEAE"
-        app:layout_constraintTop_toBottomOf="@+id/employee_individual_image"
+        app:layout_constraintTop_toBottomOf="@+id/ivEmployeeProfilePic"
         tools:layout_editor_absoluteX="0dp">
     </View>
 

@@ -12,7 +12,6 @@ import com.example.driverex.databinding.FragmentSignInBinding
 import com.example.driverex.extention.navigation
 import com.example.driverex.extention.showToast
 import com.example.driverex.extention.snackBar
-import com.example.driverex.ui.fragment.signinfragment.viewmodel.SignInViewModel
 import com.example.driverex.utils.SharedPrefUtils
 
 
@@ -32,7 +31,7 @@ class SignInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.signInButton2.setOnClickListener {
+        binding.btnSIgnIn.setOnClickListener {
             checkEmpty()
             errorResponse()
             isLoading()
@@ -55,7 +54,7 @@ class SignInFragment : Fragment() {
 
     private fun checkEmpty()
     {
-        if (binding.emailInput.text == null || binding.passwordInput.text == null)
+        if (binding.etEmail.text == null || binding.etPassword.text == null)
         {
             requireContext().showToast("Enter Both Username & Password")
         }
@@ -67,7 +66,7 @@ class SignInFragment : Fragment() {
 
     private fun signIn()
     {
-        viewModel.login(binding.emailInput.text.toString(), binding.passwordInput.text.toString()).observe(viewLifecycleOwner)
+        viewModel.login(binding.etEmail.text.toString(), binding.etPassword.text.toString()).observe(viewLifecycleOwner)
         { loginResponse ->
             viewModel.proceed.observe(viewLifecycleOwner)
 

@@ -2,8 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/driver_ex_navigation"
-    app:startDestination="@id/splashFragment">
+    android:id="@+id/driver_ex_navigation">
 
     <fragment
         android:id="@+id/loagingFragment"
@@ -62,24 +61,5 @@
         <argument
             android:name="data"
             app:argType="com.example.driverex.data.model.EmployeeData" />
-    </fragment>
-    <fragment
-        android:id="@+id/splashFragment"
-        android:name="com.example.driverex.ui.fragment.splashfrag.SplashFragment"
-        android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash" >
-        <action
-            android:id="@+id/action_splashFragment_to_loagingFragment"
-            app:destination="@id/loagingFragment"
-            app:launchSingleTop="false"
-            app:popUpTo="@id/splashFragment"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_splashFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:enterAnim="@anim/left_to_right_animation"
-            app:exitAnim="@anim/right_to_left_animation"
-            app:popUpTo="@id/splashFragment"
-            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

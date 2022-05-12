@@ -14,13 +14,8 @@
     <string name="work">Work</string>
     <string name="personal">Personal</string>
 
-    <string name="individual_name">%s %s</string>
-    <string name="sharedPrefLogCheck">inOrOut</string>
-    <string name="sharedPrefAccessToken">ACCESS_TOKEN</string>
-    <string name="sharedPrefIn">IN</string>
-    <string name="sharedPrefOut">OUT</string>
-    <string name="sharedPrefFavKey">FAV</string>
-    <string name="sharedPrefFav">YES</string>
-    <string name="sharedPrefNotFav">NOT</string>
+    <string name="name">%s %s</string>
+    <string name="take_a_tour">Take A Tour</string>
+    <string name="log_out">Log Out</string>
 
 </resources>

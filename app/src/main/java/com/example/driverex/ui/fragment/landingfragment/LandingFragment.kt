@@ -27,7 +27,7 @@ class LandingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.signInButton.setOnClickListener {
+        binding.btnSign.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.action_loagingFragment_to_signInFragment)
         }
     }

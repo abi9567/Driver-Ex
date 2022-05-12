@@ -9,7 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="app_color">#FF6436</color>
-    <color name="insideAppColor">#D1380A</color>
+    <color name="tool_bar_color">#D1380A</color>
 
 
 </resources>
