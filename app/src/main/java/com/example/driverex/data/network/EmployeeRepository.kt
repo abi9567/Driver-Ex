@@ -14,10 +14,11 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.lang.Exception
 
-
 class EmployeeRepository {
     val loginResponse = MutableLiveData<LoginResponse>()
+
     val errorResponse = MutableLiveData<String>()
+
     var employeeErrorResponse = MutableLiveData<EmployeeErrorResponse>()
     val loginMessage = MutableLiveData<String>()
     val isLoading = MutableLiveData<Boolean>(false)
@@ -32,8 +33,8 @@ class EmployeeRepository {
             if (userLogin.isSuccessful)
             {
                 proceed.postValue(true)
-                loginMessage.postValue(userLogin.body()?.message!!)
                 isLoading.postValue(true)
+                loginMessage.postValue(userLogin.body()?.message!!)
                 loginResponse.postValue(userLogin.body()?.defaultData!!)
                 Log.d("TOKEN", loginResponse.value?.accessToken.toString())
             }

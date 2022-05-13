@@ -7,8 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.driverex.R
+import com.example.driverex.data.network.EmployeeRepository
 import com.example.driverex.databinding.FragmentSignInBinding
 import com.example.driverex.extention.navigation
 import com.example.driverex.extention.showToast

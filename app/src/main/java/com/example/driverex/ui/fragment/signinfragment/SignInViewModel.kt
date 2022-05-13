@@ -30,7 +30,6 @@ class SignInViewModel : ViewModel() {
                 loginResponse = repository.userLogin(email,password)
             }
             catch (t : Throwable) {
-
                 when (t) {
                     is IOException -> errorResponse.postValue("Network Failure")
                 }

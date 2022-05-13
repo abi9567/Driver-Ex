@@ -13,6 +13,7 @@ class EmployeeViewModel : ViewModel() {
     private val repository = EmployeeRepository()
 
     var employeeErrorResponse = repository.employeeErrorResponse
+
     var employeeData = repository.employeeDetails
 
     fun employeeData(token : String) : MutableLiveData<List<EmployeeData>> {
@@ -26,7 +27,7 @@ class EmployeeViewModel : ViewModel() {
 
                 when (t)
                 {
-                    is IOException -> employeeErrorResponse.postValue(EmployeeErrorResponse("Network Error"))
+                    is IOException -> employeeErrorResponse.postValue(EmployeeErrorResponse("Check Your Connection"))
                 }
 
             }
