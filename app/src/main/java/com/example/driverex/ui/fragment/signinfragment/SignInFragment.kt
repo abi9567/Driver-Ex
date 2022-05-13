@@ -2,10 +2,10 @@ package com.example.driverex.ui.fragment.signinfragment
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.driverex.R
@@ -26,6 +26,7 @@ class SignInFragment : Fragment() {
 
         // Inflate the layout for this fragment
         binding = FragmentSignInBinding.inflate(layoutInflater, container, false)
+
             return binding.root
         }
 
@@ -33,9 +34,9 @@ class SignInFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnSIgnIn.setOnClickListener {
-            signIn()
-            isLoading()
-            errorResponse()
+                signIn()
+                errorResponse()
+                isLoading()
         }
     }
 
@@ -54,13 +55,12 @@ class SignInFragment : Fragment() {
         }
     }
 
-
     private fun signIn()
     {
         viewModel.login(binding.etEmail.text.toString(), binding.etPassword.text.toString()).observe(viewLifecycleOwner)
         { loginResponse ->
-            viewModel.proceed.observe(viewLifecycleOwner)
 
+            viewModel.proceed.observe(viewLifecycleOwner)
             { proceed ->
                 if (proceed)
                 {
@@ -72,6 +72,7 @@ class SignInFragment : Fragment() {
                         viewModel.loginMessage.observe(viewLifecycleOwner) { requireView().snackBar(it) }
                     }
                 }
+
             }
         }
     }

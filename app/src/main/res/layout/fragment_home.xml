@@ -7,7 +7,7 @@
     tools:context=".ui.fragment.homefragment.HomeFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tbHome"
+        android:id="@+id/toolBarHomePage"
         android:layout_width="match_parent"
         android:layout_height="49dp"
         android:background="@color/tool_bar_color"
@@ -19,7 +19,7 @@
         android:id="@+id/rvEmployee"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tbHome"
+        android:layout_below="@id/toolBarHomePage"
         android:padding="10dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:layout_editor_absoluteX="16dp"

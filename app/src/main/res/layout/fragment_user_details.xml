@@ -8,7 +8,7 @@
     tools:context=".ui.fragment.userdetailfragment.UserDetailsFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tbUserDetail"
+        android:id="@+id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="49dp"
         android:background="@color/tool_bar_color"
@@ -35,11 +35,11 @@
                 android:layout_marginEnd="55dp"
                 android:maxLines="2"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ivSendMail"
+                app:layout_constraintStart_toEndOf="@+id/ivMail"
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
 
             <ImageView
-                android:id="@+id/ivSendMail"
+                android:id="@+id/ivMail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -55,7 +55,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
                 android:text="@string/personal"
-                app:layout_constraintStart_toEndOf="@+id/ivSendMail"
+                app:layout_constraintStart_toEndOf="@+id/ivMail"
                 app:layout_constraintTop_toBottomOf="@+id/tvPersonalEmail" />
 
             <TextView
@@ -177,7 +177,8 @@
                 android:clickable="true"
                 android:src="@drawable/ic_baseline_star_24"
                 app:layout_constraintBottom_toBottomOf="@+id/ivUserPhoto"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                android:focusable="true" />
 
             <TextView
                 android:id="@+id/tvName"

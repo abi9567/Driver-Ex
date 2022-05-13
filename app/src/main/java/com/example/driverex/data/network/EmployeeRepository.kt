@@ -31,18 +31,19 @@ class EmployeeRepository {
             val userLogin = response.userLogin(userName, password)
             if (userLogin.isSuccessful)
             {
+                proceed.postValue(true)
                 loginMessage.postValue(userLogin.body()?.message!!)
                 isLoading.postValue(true)
-                proceed.postValue(true)
                 loginResponse.postValue(userLogin.body()?.defaultData!!)
                 Log.d("TOKEN", loginResponse.value?.accessToken.toString())
-            } else
-            {
-                proceed.postValue(false)
-                errorResponse.postValue(userLogin.message())
-                Log.d("Exception", userLogin.message())
             }
 
+            else
+            {
+                proceed.postValue(false)
+                Log.d("Exception", userLogin.message())
+                errorResponse.postValue(userLogin.message())
+            }
         return loginResponse
     }
 

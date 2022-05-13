@@ -38,5 +38,4 @@ class SignInViewModel : ViewModel() {
         }
         return loginResponse
     }
-
 }

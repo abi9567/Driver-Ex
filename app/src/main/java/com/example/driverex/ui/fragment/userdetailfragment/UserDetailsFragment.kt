@@ -27,9 +27,10 @@ class UserDetailsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentUserDetailsBinding.inflate(layoutInflater, container, false)
-        binding.tbUserDetail.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
+        binding.toolBar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
 
-        binding.tbUserDetail.setNavigationOnClickListener {
+        binding.toolBar.navigationIcon?.setTint(ContextCompat.getColor(requireContext(),R.color.white))
+        binding.toolBar.setNavigationOnClickListener {
             it.navigation(R.id.action_userDetailsFragment_to_homeFragment)
         }
 
@@ -41,21 +42,15 @@ class UserDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        binding.toolBarDetailPage.goBack.setOnClickListener {
-//            it.navigation(R.id.action_userDetailsFragment_to_homeFragment)
-//        }
-
 
         binding.fabFavourite.setOnClickListener {
-            settingFav()
+            FavButtonClick()
         }
-
         updateUI()
         favButton()
-
     }
 
-    private fun settingFav() {
+    private fun FavButtonClick() {
         SharedPrefUtils.favouriteSharedPref()
         binding.fabFavourite.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.app_color))
         binding.fabFavourite.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(),R.color.app_color))

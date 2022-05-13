@@ -37,9 +37,9 @@ class HomeFragment : Fragment() {
 
 //        }
 
-        binding.tbHome.inflateMenu(R.menu.toolbar_home)
+        binding.toolBarHomePage.inflateMenu(R.menu.toolbar_home)
 
-        binding.tbHome.setOnMenuItemClickListener {
+        binding.toolBarHomePage.setOnMenuItemClickListener {
             when(it.itemId) {
                 R.id.menuLogout -> {settingLogOut()
                     true}
