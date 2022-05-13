@@ -17,7 +17,7 @@ import java.lang.Exception
 
 class EmployeeRepository {
     val loginResponse = MutableLiveData<LoginResponse>()
-    val errorResponse = MutableLiveData<ErrorResponse>()
+    val errorResponse = MutableLiveData<String>()
     var employeeErrorResponse = MutableLiveData<EmployeeErrorResponse>()
     val loginMessage = MutableLiveData<String>()
     val isLoading = MutableLiveData<Boolean>(false)
@@ -39,14 +39,9 @@ class EmployeeRepository {
             } else
             {
                 proceed.postValue(false)
-                errorResponse.postValue(ErrorResponse(userLogin.message()))
+                errorResponse.postValue(userLogin.message())
                 Log.d("Exception", userLogin.message())
             }
-
-//            } catch (e: Exception) {
-//                errorResponse.postValue(ErrorResponse(e.message.toString()))
-//                Log.d("Exception", e.message.toString())
-//            }
 
         return loginResponse
     }
@@ -63,9 +58,6 @@ class EmployeeRepository {
                     employeeErrorResponse.postValue(EmployeeErrorResponse(employeeData.message()))
                 }
 
-//            catch (e:Exception) {
-//                employeeErrorResponse = EmployeeErrorResponse(e.message.toString())
-//            }
         return employeeDetails
     }
 }

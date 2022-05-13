@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.example.driverex.data.model.*
 import com.example.driverex.data.network.EmployeeRepository
 import kotlinx.coroutines.launch
+import java.io.IOException
 import java.lang.Exception
 
 
@@ -21,13 +22,16 @@ class EmployeeViewModel : ViewModel() {
             try {
                 employeeData = repository.employeeData(token)
             }
-            catch (e : Exception) {
-                employeeErrorResponse.postValue(EmployeeErrorResponse(e.message.toString()))
+            catch (t : Throwable) {
+
+                when (t)
+                {
+                    is IOException -> employeeErrorResponse.postValue(EmployeeErrorResponse("Network Error"))
+                }
+
             }
         }
         return employeeData
     }
-
-
 
 }

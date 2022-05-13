@@ -34,7 +34,6 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="55dp"
                 android:maxLines="2"
-                android:text="TextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ivSendMail"
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
@@ -68,7 +67,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="55dp"
                 android:maxLines="2"
-                android:text="TextView"
+
                 app:layout_constraintEnd_toStartOf="@+id/ivWorkMsg"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/ivWorkNum"
@@ -133,7 +132,6 @@
                 android:layout_marginEnd="55dp"
                 android:layout_width="match_parent"
                 android:maxLines="2"
-                android:text="TextView"
                 app:layout_constraintEnd_toStartOf="@+id/ivMobileMsg"
                 app:layout_constraintStart_toEndOf="@+id/ivMobile"
                 app:layout_constraintTop_toBottomOf="@+id/ivUserPhoto" />
@@ -188,7 +186,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="52dp"
                 android:layout_marginBottom="24dp"
-                android:text="TextView"
                 android:textColor="@color/app_color"
                 android:textSize="25sp"
                 android:textStyle="bold"

@@ -50,7 +50,7 @@ class UserDetailsFragment : Fragment() {
             settingFav()
         }
 
-        settingText()
+        updateUI()
         favButton()
 
     }
@@ -75,10 +75,10 @@ class UserDetailsFragment : Fragment() {
         }
     }
 
-    private fun settingText() {
+    private fun updateUI() {
         binding.tvName.setText(getString(R.string.name, arguments.data.firstName,arguments.data.lastName))
         binding.tvMobileNum.setText(arguments.data.mobileNumber.toString())
-        binding.tvOffice.setText(arguments.data.landLineNumber.toString())
+        binding.tvOfficeNum.setText(arguments.data.landLineNumber.toString())
         binding.tvPersonalEmail.setText(arguments.data.email)
     }
 }

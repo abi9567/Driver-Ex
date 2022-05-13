@@ -12,5 +12,5 @@ data class LoginResponse(
 data class ErrorResponse
     (
     @SerializedName("message")
-    val errorMessage : String
+    val errorMessage : String?
     )

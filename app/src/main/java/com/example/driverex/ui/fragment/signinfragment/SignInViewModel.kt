@@ -8,13 +8,14 @@ import com.example.driverex.data.model.LoginResponse
 import com.example.driverex.data.network.EmployeeRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import java.io.IOException
 
 class SignInViewModel : ViewModel() {
 
     private val repository = EmployeeRepository()
 
     val isLoading : MutableLiveData<Boolean> = repository.isLoading
-    val errorResponse : MutableLiveData<ErrorResponse> = repository.errorResponse
+    val errorResponse : MutableLiveData<String> = repository.errorResponse
     val loginMessage : MutableLiveData<String> = repository.loginMessage
     val proceed : MutableLiveData<Boolean> = repository.proceed
 
@@ -28,8 +29,11 @@ class SignInViewModel : ViewModel() {
             try {
                 loginResponse = repository.userLogin(email,password)
             }
-            catch (e : Exception) {
-                errorResponse.postValue(ErrorResponse(e.message.toString()))
+            catch (t : Throwable) {
+
+                when (t) {
+                    is IOException -> errorResponse.postValue("Network Failure")
+                }
             }
         }
         return loginResponse

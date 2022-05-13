@@ -1,6 +1,7 @@
 package com.example.driverex.ui.fragment.signinfragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -32,9 +33,9 @@ class SignInFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnSIgnIn.setOnClickListener {
-            checkEmpty()
-            errorResponse()
+            signIn()
             isLoading()
+            errorResponse()
         }
     }
 
@@ -48,21 +49,11 @@ class SignInFragment : Fragment() {
 
     private fun errorResponse() {
         viewModel.errorResponse.observe(viewLifecycleOwner) {
-            requireContext().showToast(it.errorMessage)
+            Log.d("SignError",it)
+            requireContext().showToast(it)
         }
     }
 
-    private fun checkEmpty()
-    {
-        if (binding.etEmail.text == null || binding.etPassword.text == null)
-        {
-            requireContext().showToast("Enter Both Username & Password")
-        }
-        else
-        {
-            signIn()
-        }
-    }
 
     private fun signIn()
     {
