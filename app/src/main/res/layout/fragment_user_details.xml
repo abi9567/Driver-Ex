@@ -23,14 +23,15 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:paddingBottom="15dp"
             android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/tvPersonalEmail"
                 style="@style/employeeDetailStyle"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="55dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="55dp"
                 android:maxLines="2"
@@ -61,13 +62,12 @@
             <TextView
                 android:id="@+id/tvOfficeNum"
                 style="@style/employeeDetailStyle"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="55dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="55dp"
+                android:layout_marginEnd="21dp"
                 android:maxLines="2"
-
                 app:layout_constraintEnd_toStartOf="@+id/ivWorkMsg"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/ivWorkNum"
@@ -107,7 +107,7 @@
                 android:id="@+id/ivUserPhoto"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
-                android:scaleType="center"
+                android:scaleType="centerCrop"
                 android:src="@drawable/contact_photo"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="0dp" />
@@ -127,10 +127,10 @@
                 android:id="@+id/tvMobileNum"
                 style="@style/employeeDetailStyle"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="55dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
-                android:layout_marginEnd="55dp"
-                android:layout_width="match_parent"
+                android:layout_marginEnd="21dp"
+                android:layout_width="0dp"
                 android:maxLines="2"
                 app:layout_constraintEnd_toStartOf="@+id/ivMobileMsg"
                 app:layout_constraintStart_toEndOf="@+id/ivMobile"
@@ -182,8 +182,8 @@
 
             <TextView
                 android:id="@+id/tvName"
-                android:layout_width="match_parent"
-                android:layout_marginEnd="65dp"
+                android:layout_width="0dp"
+                android:layout_marginEnd="12dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="52dp"
                 android:layout_marginBottom="24dp"

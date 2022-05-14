@@ -31,9 +31,3 @@ import kotlinx.parcelize.Parcelize
             val profilePhoto: String?,
 
         ) : Parcelable
-
-
-data class EmployeeErrorResponse
-    (
-    val message : String
-)

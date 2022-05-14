@@ -1,6 +1,7 @@
 package com.example.driverex.ui.fragment.signinfragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,9 +21,11 @@ class SignInFragment : Fragment() {
     private lateinit var binding: FragmentSignInBinding
     private val viewModel : SignInViewModel by viewModels()
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
+        Log.d("Signin","Created")
         // Inflate the layout for this fragment
         binding = FragmentSignInBinding.inflate(layoutInflater, container, false)
 
@@ -33,7 +36,7 @@ class SignInFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnSIgnIn.setOnClickListener {
-                signIn()
+            signIn()
         }
     }
 
@@ -42,34 +45,34 @@ class SignInFragment : Fragment() {
     {
         viewModel.login(binding.etEmail.text.toString(), binding.etPassword.text.toString()).observe(viewLifecycleOwner)
         { apiResponse ->
-            when (apiResponse.apiStatus) {
+            when (apiResponse.apiStatus)
+            {
                 ApiStatus.SUCCESS -> apiResponse.data.let { loginResponse ->
-
                     if (findNavController().currentDestination?.id == R.id.signInFragment) {
                         SharedPrefUtils.setLogINOut("IN")
                         SharedPrefUtils.setSharedPrefToken(loginResponse?.body()?.defaultData?.accessToken!!)
                         requireView().navigation(R.id.action_signInFragment_to_homeFragment)
-                        binding.progressBar.visibility = View.GONE
-                    }
-                }
+                        binding.progressBar.visibility = View.GONE } }
 
                 ApiStatus.ERROR -> apiResponse.message.let { message->
                     requireContext().showToast(message!!)
-                    binding.progressBar.visibility = View.GONE
-                }
+                    binding.progressBar.visibility = View.GONE }
 
-                ApiStatus.LOADING -> {
+                ApiStatus.LOADING ->
+                {
                     binding.progressBar.visibility = View.VISIBLE
                 }
 
-
-                }
-            }
-
-
-
             }
         }
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("SignIn","On Destroy")
+    }
+}
 
 
 

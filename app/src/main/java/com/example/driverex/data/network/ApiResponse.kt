@@ -1,4 +1,6 @@
-package com.example.driverex.enums
+package com.example.driverex.data.network
+
+import com.example.driverex.enums.ApiStatus
 
 data class ApiResponse<T>(val apiStatus : ApiStatus, val data :T, val message : String?) {
 
@@ -12,5 +14,4 @@ data class ApiResponse<T>(val apiStatus : ApiStatus, val data :T, val message : 
         fun <T> loading(): ApiResponse<T?> =
             ApiResponse(apiStatus = ApiStatus.LOADING, data = null, message = null)
     }
-
 }

@@ -8,9 +8,3 @@ data class LoginResponse(
     @SerializedName("token_type")
     val tokenType: String,
 )
-
-data class ErrorResponse
-    (
-    @SerializedName("message")
-    val errorMessage : String?
-    )
