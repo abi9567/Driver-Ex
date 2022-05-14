@@ -1,10 +1,9 @@
 package com.example.driverex.ui.fragment.homefragment
 
 import androidx.lifecycle.*
-import com.example.driverex.data.model.*
+import com.example.driverex.enums.ApiResponse
 import com.example.driverex.data.network.EmployeeRepository
-import kotlinx.coroutines.launch
-import java.io.IOException
+import kotlinx.coroutines.Dispatchers
 import java.lang.Exception
 
 
@@ -12,27 +11,26 @@ class EmployeeViewModel : ViewModel() {
 
     private val repository = EmployeeRepository()
 
-    var employeeErrorResponse = repository.employeeErrorResponse
+    fun employeeData(token : String) = liveData(Dispatchers.IO) {
 
-    var employeeData = repository.employeeDetails
-
-    fun employeeData(token : String) : MutableLiveData<List<EmployeeData>> {
-
-        viewModelScope.launch {
+        emit(ApiResponse.loading())
 
             try {
-                employeeData = repository.employeeData(token)
-            }
-            catch (t : Throwable) {
+                val employeeResponse = repository.employeeData(token)
 
-                when (t)
-                {
-                    is IOException -> employeeErrorResponse.postValue(EmployeeErrorResponse("Check Your Connection"))
+                if (employeeResponse.isSuccessful) {
+                    emit(ApiResponse.success(employeeResponse))
+                }
+                else {
+                    emit(ApiResponse.error(data = null, message = employeeResponse.message()))
                 }
 
             }
+            catch (e : Exception) {
+                    emit(ApiResponse.error(data = null, message = e.message.toString() ))
+            }
         }
-        return employeeData
-    }
+
+
 
 }

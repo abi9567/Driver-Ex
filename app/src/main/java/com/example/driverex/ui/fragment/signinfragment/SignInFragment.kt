@@ -1,21 +1,17 @@
 package com.example.driverex.ui.fragment.signinfragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.driverex.enums.ApiStatus
 import com.example.driverex.R
-import com.example.driverex.data.network.EmployeeRepository
 import com.example.driverex.databinding.FragmentSignInBinding
 import com.example.driverex.extention.navigation
 import com.example.driverex.extention.showToast
-import com.example.driverex.extention.snackBar
 import com.example.driverex.utils.SharedPrefUtils
 
 
@@ -38,46 +34,42 @@ class SignInFragment : Fragment() {
 
         binding.btnSIgnIn.setOnClickListener {
                 signIn()
-                errorResponse()
-                isLoading()
         }
     }
 
-    private fun isLoading() {
-        viewModel.isLoading.observe(viewLifecycleOwner)
-        {
-            if (it) { binding.progressBar.visibility = View.VISIBLE }
-            else { binding.progressBar.visibility = View.GONE }
-        }
-    }
-
-    private fun errorResponse() {
-        viewModel.errorResponse.observe(viewLifecycleOwner) {
-            Log.d("SignError",it)
-            requireContext().showToast(it)
-        }
-    }
 
     private fun signIn()
     {
         viewModel.login(binding.etEmail.text.toString(), binding.etPassword.text.toString()).observe(viewLifecycleOwner)
-        { loginResponse ->
+        { apiResponse ->
+            when (apiResponse.apiStatus) {
+                ApiStatus.SUCCESS -> apiResponse.data.let { loginResponse ->
 
-            viewModel.proceed.observe(viewLifecycleOwner)
-            { proceed ->
-                if (proceed)
-                {
-                    if (findNavController().currentDestination?.id == R.id.signInFragment)
-                    {
-                        view?.navigation(R.id.action_signInFragment_to_homeFragment)
+                    if (findNavController().currentDestination?.id == R.id.signInFragment) {
                         SharedPrefUtils.setLogINOut("IN")
-                        SharedPrefUtils.setSharedPrefToken(loginResponse.accessToken)
-                        viewModel.loginMessage.observe(viewLifecycleOwner) { requireView().snackBar(it) }
+                        SharedPrefUtils.setSharedPrefToken(loginResponse?.body()?.defaultData?.accessToken!!)
+                        requireView().navigation(R.id.action_signInFragment_to_homeFragment)
+                        binding.progressBar.visibility = View.GONE
                     }
                 }
 
+                ApiStatus.ERROR -> apiResponse.message.let { message->
+                    requireContext().showToast(message!!)
+                    binding.progressBar.visibility = View.GONE
+                }
+
+                ApiStatus.LOADING -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+
+
+                }
+            }
+
+
+
             }
         }
-    }
-}
+
+
 

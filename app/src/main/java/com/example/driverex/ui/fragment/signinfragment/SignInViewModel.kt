@@ -1,40 +1,30 @@
 package com.example.driverex.ui.fragment.signinfragment
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.driverex.data.model.ErrorResponse
-import com.example.driverex.data.model.LoginResponse
+import androidx.lifecycle.liveData
+import com.example.driverex.enums.ApiResponse
 import com.example.driverex.data.network.EmployeeRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
-import java.io.IOException
+import kotlinx.coroutines.Dispatchers
 
 class SignInViewModel : ViewModel() {
 
     private val repository = EmployeeRepository()
 
-    val isLoading : MutableLiveData<Boolean> = repository.isLoading
-    val errorResponse : MutableLiveData<String> = repository.errorResponse
-    val loginMessage : MutableLiveData<String> = repository.loginMessage
-    val proceed : MutableLiveData<Boolean> = repository.proceed
+    fun login(email : String, password: String) = liveData(Dispatchers.IO) {
 
-    var loginResponse : MutableLiveData<LoginResponse> = repository.loginResponse
-
-
-
-    fun login(email : String, password: String) : MutableLiveData<LoginResponse> {
-
-        viewModelScope.launch {
+            emit(ApiResponse.loading())
             try {
-                loginResponse = repository.userLogin(email,password)
-            }
-            catch (t : Throwable) {
-                when (t) {
-                    is IOException -> errorResponse.postValue("Network Failure")
+                val loginResponse = repository.userLogin(email,password)
+                if (loginResponse.isSuccessful)
+                    emit(ApiResponse.success(loginResponse))
+
+                else {
+                    emit(ApiResponse.error(data = null,loginResponse.message().toString()))
                 }
             }
+            catch (e : Exception) {
+                emit(ApiResponse.error(data = null, message = e.message.toString()))
+            }
         }
-        return loginResponse
+
     }
-}

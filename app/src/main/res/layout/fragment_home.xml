@@ -27,4 +27,12 @@
         tools:listitem="@layout/employee_list_item">
     </androidx.recyclerview.widget.RecyclerView>
 
+    <ProgressBar
+        android:id="@+id/progressBarHome"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"/>
+
 </RelativeLayout>

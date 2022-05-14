@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import com.example.driverex.enums.ApiStatus
 import com.example.driverex.R
 import com.example.driverex.databinding.FragmentHomeBinding
 import com.example.driverex.extention.navigation
@@ -33,38 +33,41 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        binding.include.logOut.setOnClickListener {
-
-//        }
-
         binding.toolBarHomePage.inflateMenu(R.menu.toolbar_home)
 
         binding.toolBarHomePage.setOnMenuItemClickListener {
-            when(it.itemId) {
+            when(it.itemId)
+            {
                 R.id.menuLogout -> {settingLogOut()
                     true}
                 else -> false
             }
-
         }
-        viewModel.employeeErrorResponse.observe(viewLifecycleOwner) {
-            requireContext().showToast(it.message)
-        }
-
-
-        settingRecyclerView()
+        settingUI()
     }
 
-    private fun settingRecyclerView()
+    private fun settingUI()
     {
-        viewModel.employeeData(SharedPrefUtils.getSharedPrefAccessToken()).observe(viewLifecycleOwner) {
-            binding.rvEmployee.apply {
-                val employeeAdapter = EmployeeAdapter(it.sortedBy { it.firstName})
-                { employeeData -> findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToUserDetailsFragment(employeeData)) }
-                adapter = employeeAdapter
+        viewModel.employeeData(SharedPrefUtils.getSharedPrefAccessToken()).observe(viewLifecycleOwner) { apiResponse ->
+
+            when (apiResponse.apiStatus) {
+                ApiStatus.SUCCESS -> apiResponse.data.let { employeeResponse ->
+                    binding.progressBarHome.visibility = View.GONE
+                    binding.rvEmployee.apply {
+                        adapter =  EmployeeAdapter(employeeResponse?.body()?.defaultData?.employeeData!!.sortedBy { it.firstName }) { employeeData ->
+                            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToUserDetailsFragment(employeeData))
+                        }
+                    }
+                }
+                ApiStatus.ERROR -> apiResponse.message.let { message->
+                    requireContext().showToast(message!!)
+                    binding.progressBarHome.visibility = View.GONE
+                }
+                ApiStatus.LOADING -> binding.progressBarHome.visibility = View.VISIBLE
             }
         }
     }
+
 
     private fun settingLogOut()
     {

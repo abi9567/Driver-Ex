@@ -15,51 +15,11 @@ import retrofit2.Response
 import java.lang.Exception
 
 class EmployeeRepository {
-    val loginResponse = MutableLiveData<LoginResponse>()
-
-    val errorResponse = MutableLiveData<String>()
-
-    var employeeErrorResponse = MutableLiveData<EmployeeErrorResponse>()
-    val loginMessage = MutableLiveData<String>()
-    val isLoading = MutableLiveData<Boolean>(false)
-    val proceed = MutableLiveData<Boolean>(false)
-    val employeeDetails = MutableLiveData<List<EmployeeData>>()
 
     private val response = RetrofitService.retrofitService()
 
-    suspend fun userLogin(userName: String, password: String): MutableLiveData<LoginResponse> {
+    suspend fun userLogin(userName: String, password: String) = response.userLogin(userName, password)
 
-            val userLogin = response.userLogin(userName, password)
-            if (userLogin.isSuccessful)
-            {
-                proceed.postValue(true)
-                isLoading.postValue(true)
-                loginMessage.postValue(userLogin.body()?.message!!)
-                loginResponse.postValue(userLogin.body()?.defaultData!!)
-                Log.d("TOKEN", loginResponse.value?.accessToken.toString())
-            }
+    suspend fun employeeData(token : String) = response.employeeData(token = "Bearer $token")
 
-            else
-            {
-                proceed.postValue(false)
-                Log.d("Exception", userLogin.message())
-                errorResponse.postValue(userLogin.message())
-            }
-        return loginResponse
-    }
-
-    suspend fun employeeData(token: String): MutableLiveData<List<EmployeeData>> {
-
-                val employeeData = response.employeeData(token = "Bearer $token")
-                if (employeeData.isSuccessful) {
-                    proceed.postValue(true)
-                    employeeDetails.postValue(employeeData.body()?.defaultData?.employeeData)
-                } else {
-                    proceed.postValue(false)
-                    Log.d("REPOSIT", employeeData.code().toString())
-                    employeeErrorResponse.postValue(EmployeeErrorResponse(employeeData.message()))
-                }
-
-        return employeeDetails
-    }
 }
