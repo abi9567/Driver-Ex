@@ -28,5 +28,4 @@ interface APIInterface {
         @Header("Authorization") token : String
 
     ) : Response<DefaultResponse<EmployeeResponse>>
-
 }
