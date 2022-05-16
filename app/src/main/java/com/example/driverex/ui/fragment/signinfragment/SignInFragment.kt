@@ -36,15 +36,14 @@ class SignInFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnSIgnIn.setOnClickListener {
-            signIn()
+                signIn()
         }
     }
 
 
     private fun signIn()
     {
-        viewModel.login(binding.etEmail.text.toString(), binding.etPassword.text.toString()).observe(viewLifecycleOwner)
-        { apiResponse ->
+        viewModel.login(binding.etEmail.text.toString(), binding.etPassword.text.toString()).observe(viewLifecycleOwner) { apiResponse ->
             when (apiResponse.apiStatus)
             {
                 ApiStatus.SUCCESS -> apiResponse.data.let { loginResponse ->
@@ -68,10 +67,6 @@ class SignInFragment : Fragment() {
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("SignIn","On Destroy")
-    }
 }
 
 

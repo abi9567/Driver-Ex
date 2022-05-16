@@ -2,10 +2,9 @@ package com.example.driverex.utils
 
 import android.content.SharedPreferences
 import com.example.driverex.MyApplication
-import com.example.driverex.R
 import com.example.driverex.constants.ACCESS_TOKEN
 import com.example.driverex.constants.FAV_KEY
-import com.example.driverex.constants.IN_OR_OUT
+import com.example.driverex.constants.LOGIN_KEY
 import com.example.driverex.extention.sharedPref
 
 
@@ -30,12 +29,12 @@ object SharedPrefUtils {
 
     fun setLogINOut(input: String) {
         sharedPref.edit()
-            .putString(IN_OR_OUT, input)
+            .putString(LOGIN_KEY, input)
             .apply()
     }
 
     fun getSharedPrefLogin() : String {
-        return sharedPref.getString(IN_OR_OUT, "OUT")!!
+        return sharedPref.getString(LOGIN_KEY, "OUT")!!
     }
 
 

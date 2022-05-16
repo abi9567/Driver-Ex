@@ -1,7 +1,7 @@
 package com.example.driverex.data.network
 
-import android.media.session.MediaSession
 import com.example.driverex.BuildConfig
+import com.example.driverex.utils.SharedPrefUtils
 import com.google.gson.GsonBuilder
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
@@ -16,21 +16,6 @@ object RetrofitService {
 
         val logging = HttpLoggingInterceptor()
 
-        val token : String
-
-//        val headerInterceptor =  object : Interceptor {
-//            override fun intercept(chain: Interceptor.Chain): Response {
-//                var request: Request = chain.request()
-//                request = request.newBuilder()
-//                    .addHeader("Authorization","Bearer $token")
-//                    .build()
-//                return chain.proceed(request)
-//            }
-//
-//        }
-
-
-
 //      Play Store
         if (BuildConfig.DEBUG) {
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -41,7 +26,6 @@ object RetrofitService {
 
         val client = OkHttpClient.Builder()
             .addInterceptor(logging)
-//            .addInterceptor(headerInterceptor)
             .build()
 
         val gson = GsonBuilder()

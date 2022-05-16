@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -48,22 +49,21 @@ class HomeFragment : Fragment() {
 
     private fun settingUI()
     {
-        viewModel.employeeData(SharedPrefUtils.getSharedPrefAccessToken()).observe(viewLifecycleOwner) { apiResponse ->
-
+        viewModel.getEmployeeList()
+        viewModel.employees.observe(viewLifecycleOwner) { apiResponse ->
+            binding.progressBarHome.isVisible = apiResponse.apiStatus == ApiStatus.LOADING
             when (apiResponse.apiStatus) {
                 ApiStatus.SUCCESS -> apiResponse.data.let { employeeResponse ->
-                    binding.progressBarHome.visibility = View.GONE
                     binding.rvEmployee.apply {
-                        adapter =  EmployeeAdapter(employeeResponse?.body()?.defaultData?.employeeData!!.sortedBy { it.firstName }) { employeeData ->
+                        adapter =  EmployeeAdapter(employeeResponse?.employeeData!!.sortedBy { it.firstName }) { employeeData ->
                             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToUserDetailsFragment(employeeData))
                         }
                     }
                 }
                 ApiStatus.ERROR -> apiResponse.message.let { message->
                     requireContext().showToast(message!!)
-                    binding.progressBarHome.visibility = View.GONE
                 }
-                ApiStatus.LOADING -> binding.progressBarHome.visibility = View.VISIBLE
+                else -> {}
             }
         }
     }
