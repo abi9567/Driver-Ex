@@ -52,10 +52,11 @@ class HomeFragment : Fragment() {
         viewModel.getEmployeeList()
         viewModel.employees.observe(viewLifecycleOwner) { apiResponse ->
             binding.progressBarHome.isVisible = apiResponse.apiStatus == ApiStatus.LOADING
+
             when (apiResponse.apiStatus) {
                 ApiStatus.SUCCESS -> apiResponse.data.let { employeeResponse ->
                     binding.rvEmployee.apply {
-                        adapter =  EmployeeAdapter(employeeResponse?.employeeData!!.sortedBy { it.firstName }) { employeeData ->
+                        adapter =  EmployeeAdapter(employeeResponse.employeeData.sortedBy { it.firstName }) { employeeData ->
                             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToUserDetailsFragment(employeeData))
                         }
                     }

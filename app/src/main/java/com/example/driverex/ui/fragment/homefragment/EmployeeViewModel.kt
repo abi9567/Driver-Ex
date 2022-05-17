@@ -14,33 +14,23 @@ import java.lang.Exception
 
 class EmployeeViewModel : ViewModel() {
 
-    private val repository = EmployeeRepository()
-
-    private val _employees = MutableLiveData<ApiResponse<EmployeeResponse?>>()
-    val employees: LiveData<ApiResponse<EmployeeResponse?>> = _employees
 
 
+    private val _employees = MutableLiveData<ApiResponse<EmployeeResponse>>()
+    val employees: LiveData<ApiResponse<EmployeeResponse>> = _employees
+
+    val repository = EmployeeRepository()
 
 
     fun getEmployeeList() {
         val token = SharedPrefUtils.getSharedPrefAccessToken()
         viewModelScope.launch {
-            try {
-                val employeeResponse = repository.employeeData(token)
-                if (employeeResponse.isSuccessful) {
-                    _employees.value = ApiResponse(ApiStatus.SUCCESS,data = employeeResponse.body()?.defaultData, message = null)
-                }
-
-                else {
-                    ApiResponse(ApiStatus.ERROR,message = employeeResponse.message(), data = null)
-                }
-
-            } catch (e : Exception) {
-                ApiResponse.error(data = null, message = e.message.toString())
+        _employees.value = repository.employeeData(token)
             }
         }
-
     }
+
+//ApiResponse(ApiStatus.SUCCESS,repository.employeeData(token), null)
 
 
 
@@ -65,4 +55,3 @@ class EmployeeViewModel : ViewModel() {
 //
 
 
-}
