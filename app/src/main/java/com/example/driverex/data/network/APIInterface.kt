@@ -11,22 +11,29 @@ import retrofit2.http.*
 
 interface APIInterface {
 
+
     @FormUrlEncoded
     @POST("login")
     suspend fun userLogin
-    (
+                (
         @Field("email") email : String,
         @Field ("password") password : String
 
     ) : Response<DefaultResponse<LoginResponse>>
 
 
+    @Headers("isAuthorizable: true")
     @GET("employees")
     suspend fun employeeData
-    (
-
+                (
         @Header("Accept") accept:String ="application/json",
-        @Header("Authorization") token : String
-
+//        @Header("Authorization") token : String
     ) : Response<DefaultResponse<EmployeeResponse>>
+
+
+
+
+
+
+
 }

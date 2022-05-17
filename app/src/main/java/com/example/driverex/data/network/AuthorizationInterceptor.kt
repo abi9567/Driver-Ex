@@ -9,10 +9,21 @@ class AuthorizationInterceptor : Interceptor {
     private val token = SharedPrefUtils.getSharedPrefAccessToken()
 
     override fun intercept(chain: Interceptor.Chain): Response {
+
+
     val request = chain.request()
-        request.newBuilder()
-               .addHeader("Authorization", token)
-               .build()
-        return chain.proceed(request)
+
+        val shouldAddAuthHeaders = request.headers["isAuthorizable"] == "true"
+
+        val requestBuilder = request
+            .newBuilder()
+            .method(request.method, request.body)
+            .removeHeader("isAuthorizable")
+
+                if (shouldAddAuthHeaders) {
+                    request.newBuilder().addHeader("Authorization",token)
+                }
+
+        return chain.proceed(requestBuilder.build())
     }
 }

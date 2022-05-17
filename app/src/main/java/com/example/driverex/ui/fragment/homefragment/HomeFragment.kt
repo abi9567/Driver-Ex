@@ -56,7 +56,7 @@ class HomeFragment : Fragment() {
             when (apiResponse.apiStatus) {
                 ApiStatus.SUCCESS -> apiResponse.data.let { employeeResponse ->
                     binding.rvEmployee.apply {
-                        adapter =  EmployeeAdapter(employeeResponse.employeeData.sortedBy { it.firstName }) { employeeData ->
+                        adapter =  EmployeeAdapter(employeeResponse?.employeeData!!.sortedBy { it.firstName }) { employeeData ->
                             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToUserDetailsFragment(employeeData))
                         }
                     }

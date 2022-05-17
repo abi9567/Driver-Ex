@@ -24,7 +24,7 @@ object RetrofitService {
 
         val client = OkHttpClient.Builder()
             .addInterceptor(logging)
-//            .addInterceptor(AuthorizationInterceptor())
+            .addInterceptor(AuthorizationInterceptor())
             .build()
 
         val gson = GsonBuilder()

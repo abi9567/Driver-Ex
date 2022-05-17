@@ -16,10 +16,10 @@ class EmployeeViewModel : ViewModel() {
 
 
 
-    private val _employees = MutableLiveData<ApiResponse<EmployeeResponse>>()
-    val employees: LiveData<ApiResponse<EmployeeResponse>> = _employees
+    private val _employees = MutableLiveData<ApiResponse<EmployeeResponse?>>()
+    val employees: LiveData<ApiResponse<EmployeeResponse?>> = _employees
 
-    val repository = EmployeeRepository()
+    private val repository = EmployeeRepository()
 
 
     fun getEmployeeList() {
@@ -29,29 +29,5 @@ class EmployeeViewModel : ViewModel() {
             }
         }
     }
-
-//ApiResponse(ApiStatus.SUCCESS,repository.employeeData(token), null)
-
-
-
-//    fun employeeData(token : String) = liveData(Dispatchers.IO) {
-//        emit(ApiResponse.loading())
-//
-//            try {
-//                val employeeResponse = repository.employeeData(token)
-//
-//                if (employeeResponse.isSuccessful) {
-//                    emit(ApiResponse.success(employeeResponse))
-//                }
-//                else {
-//                    emit(ApiResponse.error(data = null, message = employeeResponse.message()))
-//                }
-//
-//            }
-//            catch (e : Exception) {
-//                    emit(ApiResponse.error(data = null, message = e.message.toString() ))
-//            }
-//        }
-//
 
 

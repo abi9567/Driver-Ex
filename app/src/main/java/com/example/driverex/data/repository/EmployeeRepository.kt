@@ -9,25 +9,28 @@ import com.example.driverex.enums.ApiStatus
 class EmployeeRepository {
 
     private val apiInterface = RetrofitService.retrofitService()
-    lateinit var employeeResponse : ApiResponse<EmployeeResponse>
+    lateinit var employeeResponse : ApiResponse<EmployeeResponse?>
 
 
-    suspend fun employeeData(token : String) : ApiResponse<EmployeeResponse> {
+    suspend fun employeeData(token : String) : ApiResponse<EmployeeResponse?> {
+
+        employeeResponse = ApiResponse.loading()
 
         try {
             val response = apiInterface.employeeData(token = "Bearer $token")
 
             if (response.isSuccessful) {
-                employeeResponse = ApiResponse(ApiStatus.SUCCESS,response.body()?.defaultData!!,null)
+                employeeResponse = ApiResponse.success(response.body()?.defaultData!!)
             }
 
         else {
-                ApiResponse(ApiStatus.ERROR,message = response.message(), data = null)
+                employeeResponse =
+                    ApiResponse.error(message = response.message(), data = null)
 
         }
 
     } catch (e : Exception) {
-        ApiResponse.error(data = null, message = e.message.toString())
+            employeeResponse=ApiResponse.error(data = null, message = e.message.toString())
     }
 
         return employeeResponse
