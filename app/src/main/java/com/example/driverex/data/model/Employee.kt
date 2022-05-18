@@ -4,14 +4,8 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-    @Parcelize
-    data class EmployeeResponse(
-        @SerializedName("data")
-        val employeeData: List<EmployeeData>,
-    ) : Parcelable
-
         @Parcelize
-        data class EmployeeData(
+        data class Employee(
             @SerializedName("email")
             val email: String?,
 

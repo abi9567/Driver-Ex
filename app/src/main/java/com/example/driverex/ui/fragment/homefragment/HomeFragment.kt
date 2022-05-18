@@ -1,6 +1,7 @@
 package com.example.driverex.ui.fragment.homefragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.driverex.enums.ApiStatus
 import com.example.driverex.R
+import com.example.driverex.constants.LOGIN_KEY
 import com.example.driverex.databinding.FragmentHomeBinding
 import com.example.driverex.extention.navigation
 import com.example.driverex.extention.showToast
@@ -49,20 +51,20 @@ class HomeFragment : Fragment() {
 
     private fun settingUI()
     {
-        viewModel.getEmployeeList()
         viewModel.employees.observe(viewLifecycleOwner) { apiResponse ->
             binding.progressBarHome.isVisible = apiResponse.apiStatus == ApiStatus.LOADING
 
             when (apiResponse.apiStatus) {
                 ApiStatus.SUCCESS -> apiResponse.data.let { employeeResponse ->
                     binding.rvEmployee.apply {
-                        adapter =  EmployeeAdapter(employeeResponse?.employeeData!!.sortedBy { it.firstName }) { employeeData ->
+                        adapter =  EmployeeAdapter(employeeResponse!!.sortedBy { it.firstName }) { employeeData ->
                             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToUserDetailsFragment(employeeData))
                         }
                     }
                 }
                 ApiStatus.ERROR -> apiResponse.message.let { message->
                     requireContext().showToast(message!!)
+                    Log.d("Error",message)
                 }
                 else -> {}
             }

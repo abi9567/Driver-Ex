@@ -60,6 +60,6 @@
             app:exitAnim="@anim/right_to_left_animation" />
         <argument
             android:name="data"
-            app:argType="com.example.driverex.data.model.EmployeeData" />
+            app:argType="com.example.driverex.data.model.Employee" />
     </fragment>
 </navigation>

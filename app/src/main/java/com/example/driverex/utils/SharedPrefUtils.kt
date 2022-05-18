@@ -17,8 +17,8 @@ object SharedPrefUtils {
         sharedPref = MyApplication.appContext.sharedPref()
     }
 
-    fun getSharedPrefAccessToken() : String {
-        return sharedPref.getString(ACCESS_TOKEN, null).toString()
+    fun getSharedPrefAccessToken() : String? {
+        return sharedPref.getString(ACCESS_TOKEN, null)
     }
 
     fun setSharedPrefToken(token: String) {

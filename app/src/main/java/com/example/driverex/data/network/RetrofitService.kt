@@ -14,13 +14,13 @@ object RetrofitService {
 
         val logging = HttpLoggingInterceptor()
 
-//      Play Store
         if (BuildConfig.DEBUG) {
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY)
         }
         else {
             logging.setLevel(HttpLoggingInterceptor.Level.NONE)
         }
+
 
         val client = OkHttpClient.Builder()
             .addInterceptor(logging)

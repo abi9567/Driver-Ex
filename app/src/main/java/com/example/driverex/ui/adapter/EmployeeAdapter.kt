@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.driverex.R
-import com.example.driverex.data.model.EmployeeData
+import com.example.driverex.data.model.Employee
 import com.example.driverex.databinding.EmployeeListItemBinding
 
 
-class EmployeeAdapter(private val employeeList: List<EmployeeData>, val itemClick : ((EmployeeData) -> Unit)) : RecyclerView.Adapter<EmployeeAdapter.MyViewHolder>() {
+class EmployeeAdapter(private val employeeList: List<Employee>, val itemClick : ((Employee) -> Unit)) : RecyclerView.Adapter<EmployeeAdapter.MyViewHolder>() {
 
     class MyViewHolder (val binding : EmployeeListItemBinding) : RecyclerView.ViewHolder(binding.root) {
     }

@@ -2,6 +2,7 @@ package com.example.driverex.data.network
 
 import com.example.driverex.utils.SharedPrefUtils
 import okhttp3.Interceptor
+import okhttp3.Request
 import okhttp3.Response
 
 class AuthorizationInterceptor : Interceptor {
@@ -10,19 +11,14 @@ class AuthorizationInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
 
+        val request: Request = chain.request()
 
-    val request = chain.request()
+        val requestBuilder = request.newBuilder()
 
-        val shouldAddAuthHeaders = request.headers["isAuthorizable"] == "true"
-
-        val requestBuilder = request
-            .newBuilder()
-            .method(request.method, request.body)
-            .removeHeader("isAuthorizable")
-
-                if (shouldAddAuthHeaders) {
-                    request.newBuilder().addHeader("Authorization",token)
-                }
+        if (token != null) {
+            requestBuilder.addHeader("Authorization","Bearer $token")
+        }
+        requestBuilder.addHeader("Accept","application/json")
 
         return chain.proceed(requestBuilder.build())
     }

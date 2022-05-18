@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -14,6 +15,9 @@ import com.example.driverex.databinding.FragmentSignInBinding
 import com.example.driverex.extention.navigation
 import com.example.driverex.extention.showToast
 import com.example.driverex.utils.SharedPrefUtils
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 
 class SignInFragment : Fragment() {
@@ -43,13 +47,17 @@ class SignInFragment : Fragment() {
 
     private fun signIn()
     {
-        viewModel.login(binding.etEmail.text.toString(), binding.etPassword.text.toString()).observe(viewLifecycleOwner) { apiResponse ->
+        viewModel.login(binding.etEmail.text.toString(),binding.etPassword.text.toString())
+        viewModel.loginResponse.observe(viewLifecycleOwner) { apiResponse ->
+
+            binding.progressBar.isVisible = apiResponse.apiStatus == ApiStatus.LOADING
+
             when (apiResponse.apiStatus)
             {
                 ApiStatus.SUCCESS -> apiResponse.data.let { loginResponse ->
                     if (findNavController().currentDestination?.id == R.id.signInFragment) {
                         SharedPrefUtils.setLogINOut("IN")
-                        SharedPrefUtils.setSharedPrefToken(loginResponse?.body()?.defaultData?.accessToken!!)
+                        SharedPrefUtils.setSharedPrefToken(loginResponse?.accessToken!!)
                         requireView().navigation(R.id.action_signInFragment_to_homeFragment)
                         binding.progressBar.visibility = View.GONE } }
 
@@ -57,10 +65,8 @@ class SignInFragment : Fragment() {
                     requireContext().showToast(message!!)
                     binding.progressBar.visibility = View.GONE }
 
-                ApiStatus.LOADING ->
-                {
-                    binding.progressBar.visibility = View.VISIBLE
-                }
+
+                else -> {}
 
             }
         }
