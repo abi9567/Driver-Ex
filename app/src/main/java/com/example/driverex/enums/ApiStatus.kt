@@ -1,6 +1,7 @@
 package com.example.driverex.enums
 
-enum class ApiStatus {
+enum class ApiStatus
+{
     SUCCESS,
     ERROR,
     LOADING

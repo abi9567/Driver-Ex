@@ -15,24 +15,27 @@ import com.example.driverex.utils.SharedPrefUtils
 class MainActivity : AppCompatActivity() {
 
     private var backPress: Boolean = false
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
         val navController = navHostFragment.navController
         val navGraph = navController.navInflater.inflate(R.navigation.driver_ex_navigation)
 
 
         installSplashScreen().apply {
             when (SharedPrefUtils.getSharedPrefLogin()) {
-                "IN" -> {navGraph.setStartDestination(R.id.homeFragment) }
-                else ->
-                {
-                    navGraph.setStartDestination(R.id.loagingFragment) }
+                "IN" -> {
+                    navGraph.setStartDestination(R.id.homeFragment)
+                }
+                else -> {
+                    navGraph.setStartDestination(R.id.loagingFragment)
+                }
             }
             navController.graph = navGraph
         }
@@ -42,8 +45,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (backPress)
-        {
+        if (backPress) {
             super.onBackPressed()
         }
         backPress = true
@@ -55,4 +57,4 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    }
+}

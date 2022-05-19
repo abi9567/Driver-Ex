@@ -13,14 +13,13 @@ interface APIInterface {
 
     @FormUrlEncoded
     @POST("login")
-    suspend fun userLogin(
-        @Field("email") email : String,
-        @Field ("password") password : String
-    ) : DefaultResponse<LoginResponse>
-
+    suspend fun userLogin
+    (
+        @Field("email") email: String,
+        @Field("password") password: String
+    ): DefaultResponse<LoginResponse>
 
     @GET("employees")
-    suspend fun getEmployees(
-    ) : DefaultResponse<PagingResponse<Employee>>
+    suspend fun getEmployees(): DefaultResponse<PagingResponse<Employee>>
 
 }

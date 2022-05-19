@@ -21,15 +21,15 @@ import com.example.driverex.utils.SharedPrefUtils
 
 class HomeFragment : Fragment() {
 
-    private lateinit var binding : FragmentHomeBinding
-    private val viewModel : EmployeeViewModel by viewModels()
+    private lateinit var binding: FragmentHomeBinding
+    private val viewModel: EmployeeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentHomeBinding.inflate(layoutInflater, container,false)
+        binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -39,41 +39,38 @@ class HomeFragment : Fragment() {
         binding.toolBarHomePage.inflateMenu(R.menu.toolbar_home)
 
         binding.toolBarHomePage.setOnMenuItemClickListener {
-            when(it.itemId)
-            {
-                R.id.menuLogout -> {settingLogOut()
-                    true}
+            when (it.itemId) {
+                R.id.menuLogout -> {
+                    settingLogOut()
+                    true
+                }
                 else -> false
             }
         }
         settingUI()
     }
 
-    private fun settingUI()
-    {
+    private fun settingUI() {
         viewModel.employees.observe(viewLifecycleOwner) { apiResponse ->
             binding.progressBarHome.isVisible = apiResponse.apiStatus == ApiStatus.LOADING
 
             when (apiResponse.apiStatus) {
                 ApiStatus.SUCCESS -> apiResponse.data.let { employeeResponse ->
                     binding.rvEmployee.apply {
-                        adapter =  EmployeeAdapter(employeeResponse!!.sortedBy { it.firstName }) { employeeData ->
-                            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToUserDetailsFragment(employeeData))
-                        }
-                    }
-                }
-                ApiStatus.ERROR -> apiResponse.message.let { message->
+                        adapter =
+                            EmployeeAdapter(employeeResponse!!.sortedBy { it.firstName }) { employeeData ->
+                                findNavController().navigate(
+                                    HomeFragmentDirections.actionHomeFragmentToUserDetailsFragment(employeeData)) } } }
+                ApiStatus.ERROR -> apiResponse.message.let { message ->
                     requireContext().showToast(message!!)
-                    Log.d("Error",message)
+                    Log.d("Error", message)
                 }
                 else -> {}
             }
         }
     }
 
-
-    private fun settingLogOut()
-    {
+    private fun settingLogOut() {
         SharedPrefUtils.setLogINOut("OUT")
         requireView().navigation(R.id.action_homeFragment_to_loagingFragment)
     }

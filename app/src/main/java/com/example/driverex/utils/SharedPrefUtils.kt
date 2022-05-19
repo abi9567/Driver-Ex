@@ -8,7 +8,7 @@ import com.example.driverex.constants.LOGIN_KEY
 import com.example.driverex.extention.sharedPref
 
 
-private lateinit var sharedPref : SharedPreferences
+private lateinit var sharedPref: SharedPreferences
 
 
 object SharedPrefUtils {
@@ -17,7 +17,7 @@ object SharedPrefUtils {
         sharedPref = MyApplication.appContext.sharedPref()
     }
 
-    fun getSharedPrefAccessToken() : String? {
+    fun getSharedPrefAccessToken(): String? {
         return sharedPref.getString(ACCESS_TOKEN, null)
     }
 
@@ -33,13 +33,13 @@ object SharedPrefUtils {
             .apply()
     }
 
-    fun getSharedPrefLogin() : String {
+    fun getSharedPrefLogin(): String {
         return sharedPref.getString(LOGIN_KEY, "OUT")!!
     }
 
 
-    fun getSharedPrefFavData() : String {
-        return  sharedPref.getString(FAV_KEY, "NO")!!
+    fun getSharedPrefFavData(): String {
+        return sharedPref.getString(FAV_KEY, "NO")!!
 
     }
 

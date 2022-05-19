@@ -10,17 +10,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitService {
 
-    fun retrofitService() : APIInterface {
+    fun retrofitService(): APIInterface {
 
         val logging = HttpLoggingInterceptor()
 
         if (BuildConfig.DEBUG) {
             logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-        }
-        else {
+        } else {
             logging.setLevel(HttpLoggingInterceptor.Level.NONE)
         }
-
 
         val client = OkHttpClient.Builder()
             .addInterceptor(logging)
@@ -31,11 +29,11 @@ object RetrofitService {
             .setLenient()
             .create()
 
-        val retrofit =  Retrofit.Builder()
+        val retrofit = Retrofit.Builder()
             .baseUrl("http://training.pixbit.in/api/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
             .build()
-            return retrofit.create(APIInterface::class.java)
+        return retrofit.create(APIInterface::class.java)
     }
 }

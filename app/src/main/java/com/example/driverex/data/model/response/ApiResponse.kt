@@ -1,12 +1,12 @@
-package com.example.driverex.data.network
+package com.example.driverex.data.model.response
 
 import com.example.driverex.enums.ApiStatus
 
 data class ApiResponse<T>(
-    val apiStatus : ApiStatus,
-    val data :T,
-    val message : String?
-    ) {
+    val apiStatus: ApiStatus,
+    val data: T,
+    val message: String?
+) {
 
     companion object {
         fun <T> success(data: T): ApiResponse<T> =

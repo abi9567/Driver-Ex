@@ -5,7 +5,8 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
         @Parcelize
-        data class Employee(
+        data class Employee
+            (
             @SerializedName("email")
             val email: String?,
 
@@ -24,4 +25,4 @@ import kotlinx.parcelize.Parcelize
             @SerializedName("profile_picture")
             val profilePhoto: String?,
 
-        ) : Parcelable
+            ) : Parcelable

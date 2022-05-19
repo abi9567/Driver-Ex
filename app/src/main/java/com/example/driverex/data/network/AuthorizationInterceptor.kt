@@ -12,14 +12,11 @@ class AuthorizationInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
 
         val request: Request = chain.request()
-
         val requestBuilder = request.newBuilder()
-
         if (token != null) {
-            requestBuilder.addHeader("Authorization","Bearer $token")
+            requestBuilder.addHeader("Authorization", "Bearer $token")
         }
-        requestBuilder.addHeader("Accept","application/json")
-
+        requestBuilder.addHeader("Accept", "application/json")
         return chain.proceed(requestBuilder.build())
     }
 }

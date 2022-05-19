@@ -23,48 +23,49 @@ import kotlinx.coroutines.launch
 class SignInFragment : Fragment() {
 
     private lateinit var binding: FragmentSignInBinding
-    private val viewModel : SignInViewModel by viewModels()
+    private val viewModel: SignInViewModel by viewModels()
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
 
-        Log.d("Signin","Created")
+        Log.d("Signin", "Created")
         // Inflate the layout for this fragment
         binding = FragmentSignInBinding.inflate(layoutInflater, container, false)
 
-            return binding.root
-        }
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnSIgnIn.setOnClickListener {
-                signIn()
+            signIn()
         }
     }
 
 
-    private fun signIn()
-    {
-        viewModel.login(binding.etEmail.text.toString(),binding.etPassword.text.toString())
+    private fun signIn() {
+        viewModel.login(binding.etEmail.text.toString(), binding.etPassword.text.toString())
         viewModel.loginResponse.observe(viewLifecycleOwner) { apiResponse ->
 
             binding.progressBar.isVisible = apiResponse.apiStatus == ApiStatus.LOADING
 
-            when (apiResponse.apiStatus)
-            {
+            when (apiResponse.apiStatus) {
                 ApiStatus.SUCCESS -> apiResponse.data.let { loginResponse ->
                     if (findNavController().currentDestination?.id == R.id.signInFragment) {
                         SharedPrefUtils.setLogINOut("IN")
                         SharedPrefUtils.setSharedPrefToken(loginResponse?.accessToken!!)
                         requireView().navigation(R.id.action_signInFragment_to_homeFragment)
-                        binding.progressBar.visibility = View.GONE } }
+                        binding.progressBar.visibility = View.GONE
+                    }
+                }
 
-                ApiStatus.ERROR -> apiResponse.message.let { message->
+                ApiStatus.ERROR -> apiResponse.message.let { message ->
                     requireContext().showToast(message!!)
-                    binding.progressBar.visibility = View.GONE }
-
+                    binding.progressBar.visibility = View.GONE
+                }
 
                 else -> {}
 
